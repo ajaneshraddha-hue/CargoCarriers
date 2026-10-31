@@ -1,0 +1,24 @@
+{
+  "name": "sachin-cargo-carriers",
+  "version": "1.0.0",
+  "description": "Sachin Cargo Carriers - Moving Your Business Forward, Safely and Reliably",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "logistics",
+    "cargo",
+    "transportation",
+    "sachin-cargo-carriers",
+    "hyderabad-transport",
+    "trucking"
+  ],
+  "author": "Sachin Cargo Carriers",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

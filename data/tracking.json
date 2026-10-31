@@ -1,0 +1,67 @@
+[
+  {
+    "trackingId": "SCC-78291",
+    "customer": "Varun Motors Ltd",
+    "origin": "Hyderabad Hub (Autonagar)",
+    "destination": "Mumbai Central Freight Terminal",
+    "status": "In Transit",
+    "progressPercent": 68,
+    "currentLocation": "Solapur Highway Bypass, Maharashtra",
+    "truckNumber": "TS 08 UB 4492 (Orange Volvo Heavy Haul)",
+    "driverName": "Suresh Yadav",
+    "driverPhone": "+91 94401 88231",
+    "dispatchDate": "30 Oct 2026, 06:30 PM",
+    "expectedDelivery": "01 Nov 2026, 11:00 AM",
+    "cargoType": "Automotive Engineering Components",
+    "checkpoints": [
+      { "location": "Hyderabad Central Hub (Autonagar)", "time": "30 Oct, 04:00 PM", "status": "Consignment Loaded & Dispatched", "done": true },
+      { "location": "Zaheerabad Checkpost", "time": "30 Oct, 08:45 PM", "status": "Transit Clearance Verified", "done": true },
+      { "location": "Solapur National Highway Hub", "time": "31 Oct, 05:30 AM", "status": "Midway Hub Inspection & GPS Ping", "done": true },
+      { "location": "Pune Industrial Ring Road", "time": "31 Oct, 09:00 PM (Est)", "status": "Approaching Regional Corridor", "done": false },
+      { "location": "Mumbai Logistics Terminal", "time": "01 Nov, 11:00 AM (Est)", "status": "Destination Final Delivery", "done": false }
+    ]
+  },
+  {
+    "trackingId": "SCC-55420",
+    "customer": "Apollo Health Pharma",
+    "origin": "Hyderabad (Jeedimetla)",
+    "destination": "Bengaluru (Electronic City)",
+    "status": "Out for Delivery",
+    "progressPercent": 92,
+    "currentLocation": "Bengaluru Peenya Logistics Depot",
+    "truckNumber": "TS 07 UA 1184 (20ft Insulated)",
+    "driverName": "Ramesh Goud",
+    "driverPhone": "+91 98850 77123",
+    "dispatchDate": "30 Oct 2026, 10:00 PM",
+    "expectedDelivery": "31 Oct 2026, 04:00 PM",
+    "cargoType": "Pharmaceutical Products",
+    "checkpoints": [
+      { "location": "Hyderabad Jeedimetla Hub", "time": "30 Oct, 08:00 PM", "status": "Packed & Temperature Calibrated", "done": true },
+      { "location": "Kurnool Highway Check", "time": "31 Oct, 01:15 AM", "status": "Highway Toll Verified", "done": true },
+      { "location": "Anantapur Transit Stop", "time": "31 Oct, 05:40 AM", "status": "Driver Change & Cool Check", "done": true },
+      { "location": "Bengaluru Peenya Distribution", "time": "31 Oct, 11:15 AM", "status": "Arrived at Hub - Out for Last Mile", "done": true },
+      { "location": "Electronic City Client Facility", "time": "31 Oct, 04:00 PM", "status": "Final Delivery Handover", "done": false }
+    ]
+  },
+  {
+    "trackingId": "SCC-99104",
+    "customer": "Heritage Foods & Dairy",
+    "origin": "Hyderabad (Uppal)",
+    "destination": "Chennai Central Port Yard",
+    "status": "Delivered",
+    "progressPercent": 100,
+    "currentLocation": "Chennai Port Gate 4, Tamil Nadu",
+    "truckNumber": "AP 16 TX 7751 (32ft MXL)",
+    "driverName": "K. Venkat Rao",
+    "driverPhone": "+91 97000 66321",
+    "dispatchDate": "28 Oct 2026, 07:00 PM",
+    "expectedDelivery": "30 Oct 2026, 08:30 AM",
+    "cargoType": "Packaged Consumer Goods",
+    "checkpoints": [
+      { "location": "Hyderabad Uppal Depot", "time": "28 Oct, 06:00 PM", "status": "Loaded and sealed", "done": true },
+      { "location": "Vijayawada Bypass", "time": "29 Oct, 02:30 AM", "status": "Midpoint checkpoint cleared", "done": true },
+      { "location": "Nellore Transit Point", "time": "29 Oct, 11:45 AM", "status": "Transit verification complete", "done": true },
+      { "location": "Chennai Port Gate 4", "time": "30 Oct, 08:15 AM", "status": "Delivered and POD Signed by Consignee", "done": true }
+    ]
+  }
+]

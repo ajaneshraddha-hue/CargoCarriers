@@ -1,0 +1,68 @@
+[
+  {
+    "id": "VEH-8FT",
+    "name": "8 Feet Mini Truck (Tata Ace / Pickup)",
+    "length": "8 Feet",
+    "passingCapacity": "1.0 - 1.5 Ton Passing",
+    "dimensions": "8.2 ft (L) x 4.8 ft (W) x 5.0 ft (H)",
+    "bestFor": "Rapid city distribution, e-commerce cartons, spare parts & local hub dispatch",
+    "fuel": "Diesel / CNG",
+    "image": "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=700&q=80",
+    "bodyType": "Closed Container & Open Top Available"
+  },
+  {
+    "id": "VEH-14FT",
+    "name": "14 Feet Commercial Vehicle (Bolero / Eicher Pro)",
+    "length": "14 Feet",
+    "passingCapacity": "3.5 - 4.0 Ton Passing",
+    "dimensions": "14.0 ft (L) x 6.5 ft (W) x 6.5 ft (H)",
+    "bestFor": "FMCG cartons, retail merchandise, home relocation, medium manufacturing items",
+    "fuel": "Diesel",
+    "image": "https://images.unsplash.com/photo-1586191582151-f7614d18ec3b?auto=format&fit=crop&w=700&q=80",
+    "bodyType": "Insulated / High-Side Deck"
+  },
+  {
+    "id": "VEH-17FT",
+    "name": "17 Feet Medium Freight Truck (Eicher 17ft)",
+    "length": "17 Feet",
+    "passingCapacity": "5.0 - 7.0 Ton Passing",
+    "dimensions": "17.0 ft (L) x 7.0 ft (W) x 7.0 ft (H)",
+    "bestFor": "Inter-city industrial transport, electronics, packaged goods, hardware supplies",
+    "fuel": "Diesel",
+    "image": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=700&q=80",
+    "bodyType": "All-Weather Sealed Container"
+  },
+  {
+    "id": "VEH-19FT",
+    "name": "19 Feet Heavy Cargo Carrier",
+    "length": "19 Feet",
+    "passingCapacity": "8.0 - 9.0 Ton Passing",
+    "dimensions": "19.0 ft (L) x 7.5 ft (W) x 7.5 ft (H)",
+    "bestFor": "Bulk commercial goods, textiles, auto ancillary parts, heavy machinery components",
+    "fuel": "Diesel",
+    "image": "https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=700&q=80",
+    "bodyType": "Heavy-Duty Containerized"
+  },
+  {
+    "id": "VEH-20FT",
+    "name": "20 Feet Multi-Axle Freight Truck",
+    "length": "20 Feet",
+    "passingCapacity": "10.0 - 11.0 Ton Passing",
+    "dimensions": "20.0 ft (L) x 7.8 ft (W) x 8.0 ft (H)",
+    "bestFor": "High volume warehouse transfers, pharma pallets, agricultural and industrial consignments",
+    "fuel": "Diesel",
+    "image": "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=700&q=80",
+    "bodyType": "Full Deck / Container"
+  },
+  {
+    "id": "VEH-22FT",
+    "name": "22 Feet 10-12 Ton Passing Heavy Carrier",
+    "length": "22 Feet",
+    "passingCapacity": "10.0 - 12.0 Ton Passing Certified",
+    "dimensions": "22.0 ft (L) x 8.0 ft (W) x 8.5 ft (H)",
+    "bestFor": "National highway long-haul corridors, heavy industrial bulk loads, high-cube freight",
+    "fuel": "Diesel",
+    "image": "https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?auto=format&fit=crop&w=700&q=80",
+    "bodyType": "Certified 10-12 Ton Passing Heavy Carrier"
+  }
+]

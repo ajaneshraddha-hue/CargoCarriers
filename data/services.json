@@ -1,0 +1,87 @@
+[
+  {
+    "id": "SRV-HYD-BLR",
+    "title": "Hyderabad ⇄ Bangalore Daily Express",
+    "category": "Express Corridor",
+    "tag": "Daily 2-Way Dispatch",
+    "description": "Daily direct scheduled logistics between Hyderabad (Kattedan Central Hub) and Bangalore (Peenya / Hosur / Whitefield). Fast 12-14 hours transit with GPS tracking and dedicated fleet (8ft to 22ft 10-12 Ton passing).",
+    "icon": "zap",
+    "features": [
+      "12-14 Hours Guaranteed Overnight Transit",
+      "Daily Morning & Evening Two-Way Departures",
+      "Dedicated 8ft to 22ft (10-12 Ton Passing) Vehicles",
+      "Doorstep Pickup in Hyderabad & Doorstep Delivery in Bangalore"
+    ],
+    "priceStarting": "₹14,500",
+    "rating": "4.9/5",
+    "active": true
+  },
+  {
+    "id": "SRV-BUS-EXPRESS",
+    "title": "Bus Express Parcel & Cargo Delivery",
+    "category": "Rapid Delivery",
+    "tag": "Same-Day / Overnight",
+    "description": "High-priority bus express parcel network connecting major South Indian cities. Ideal for urgent spare parts, sample boxes, documents, textile parcels, and medical items with early morning delivery.",
+    "icon": "bus",
+    "features": [
+      "Same-Day or Next-Morning Terminal Delivery",
+      "Direct Inter-State Bus Network Coordination",
+      "Carton, Box & Envelope Specialized Handling",
+      "Real-time Phone & WhatsApp Consignment Updates"
+    ],
+    "priceStarting": "₹450",
+    "rating": "4.8/5",
+    "active": true
+  },
+  {
+    "id": "SRV-PACKERS-MOVERS",
+    "title": "Packers and Movers (Home & Corporate)",
+    "category": "Relocation Service",
+    "tag": "Zero Damage Guarantee",
+    "description": "Comprehensive packing, moving, and safe relocation service for residences, corporate offices, and factory setups. 5-layer bubble packaging, specialized furniture disassembly, transit insurance, and doorstep unpacking.",
+    "icon": "package",
+    "features": [
+      "Multi-Layer Bubble Wrap & Corrugated Sheet Protection",
+      "Experienced Professional Loading & Unloading Team",
+      "Comprehensive Transit Insurance Coverage Available",
+      "Local Hyderabad Shifts & Inter-State Relocations"
+    ],
+    "priceStarting": "₹6,500",
+    "rating": "4.9/5",
+    "active": true
+  },
+  {
+    "id": "SRV-FTL-FLEET",
+    "title": "Full Truck Load (FTL) Freight (8ft - 22ft)",
+    "category": "Dedicated Logistics",
+    "tag": "10-12 Ton Passing",
+    "description": "Dedicated commercial vehicles ranging from 8 feet city pickups to 22 feet 10-12 ton passing heavy carriers. Exclusive point-to-point transport for industrial raw materials, retail distribution, and bulk cargo.",
+    "icon": "truck",
+    "features": [
+      "Complete Fleet Availability: 8ft, 14ft, 17ft, 20ft & 22ft",
+      "Certified 10-12 Ton Passing Commercial Capacity",
+      "24/7 Live All-India GPS Tracking on all Trips",
+      "Digital POD & Instant Dispatch Confirmation"
+    ],
+    "priceStarting": "₹8,000",
+    "rating": "4.9/5",
+    "active": true
+  },
+  {
+    "id": "SRV-WAREHOUSING",
+    "title": "Warehousing & Logistics Hub - Kattedan",
+    "category": "Storage & Staging",
+    "tag": "Strategic Hyderabad Hub",
+    "description": "Modern warehousing, inventory staging, and cargo consolidation facility located right at Kattedan, Hyderabad 500005. Close proximity to national highway corridors with 24/7 security and loading docks.",
+    "icon": "warehouse",
+    "features": [
+      "Round-the-clock Security, CCTV & Fire-Safety",
+      "Material Handling, Pallet Storage & Cross-Docking",
+      "Short-Term Consignment Buffer & Staging",
+      "Immediate National Highway Access (NH 44 / ORR)"
+    ],
+    "priceStarting": "₹12/sq.ft",
+    "rating": "4.8/5",
+    "active": true
+  }
+]

@@ -439,6 +439,28 @@
       transform: translateY(0);
     }
 
+    /* Auto slideshow & carousel styles */
+    .slide-item {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+    .slide-item.active {
+      display: block;
+      opacity: 1;
+    }
+    .slide-dot.active {
+      background-color: #f97316;
+      width: 24px;
+    }
+
+    /* Admin tab styles */
+    .admin-tab-btn.active {
+      background-color: #0B192C;
+      color: #ffffff;
+      border-color: #f97316;
+    }
+
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -504,12 +526,16 @@
   </div>
   <!-- ================================================================= -->
 
-  <!-- TOP ANNOUNCEMENT BAR -->
+  <!-- TOP ANNOUNCEMENT BAR WITH GST NUMBER -->
   <div class="bg-brand-dark text-slate-300 text-xs py-1.5 px-4 border-b border-slate-800">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-1.5">
-      <div class="flex items-center gap-3 sm:gap-4 flex-wrap justify-center md:justify-start text-[11px]">
+      <div class="flex items-center gap-2 sm:gap-3 flex-wrap justify-center md:justify-start text-[11px]">
         <span class="inline-flex items-center gap-1.5 text-amber-400 font-semibold uppercase tracking-wider">
           <i data-lucide="map-pin" class="w-3 h-3 text-orange-400"></i> Kattedan, Hyderabad 500005
+        </span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span class="inline-flex items-center gap-1 text-amber-300 font-bold bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/25 tracking-wider">
+          <i data-lucide="shield-check" class="w-3 h-3 text-amber-400"></i> GSTN: 36KXHPS3438G1ZY
         </span>
         <span class="hidden sm:inline text-slate-700">|</span>
         <a href="tel:8867444552" class="hover:text-white transition flex items-center gap-1 text-slate-300 font-semibold">
@@ -532,7 +558,7 @@
         <span class="inline-flex items-center gap-1 text-emerald-400 font-medium text-[11px]">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 24/7 Dispatch Control
         </span>
-        <button onclick="openAdminModal()" class="text-slate-400 hover:text-white flex items-center gap-1 px-2 py-0.5 rounded bg-slate-800/90 hover:bg-slate-700 text-[10px] transition font-medium">
+        <button onclick="openAdminModal()" class="text-slate-300 hover:text-white flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-slate-800 hover:bg-brand-orange text-[10px] transition font-bold border border-slate-700">
           <i data-lucide="lock" class="w-2.5 h-2.5 text-amber-400"></i> Admin Portal
         </button>
       </div>
@@ -550,80 +576,17 @@
         </a>
 
         <!-- DESKTOP NAVIGATION -->
-        <nav class="hidden lg:flex items-center gap-6 text-[13px] font-semibold text-slate-700">
+        <nav class="hidden lg:flex items-center gap-5 text-[13px] font-semibold text-slate-700">
           <a href="#home" class="hover:text-brand-orange transition py-2">Home</a>
-          <a href="#about" class="hover:text-brand-orange transition py-2">About Us</a>
-
-          <!-- Services Dropdown -->
-          <div class="relative group">
-            <button class="flex items-center gap-1 hover:text-brand-orange transition py-2 focus:outline-none">
-              Services <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-orange group-hover:rotate-180 transition duration-200"></i>
-            </button>
-            <div class="nav-dropdown absolute left-0 top-full pt-1 w-60 z-50">
-              <div class="bg-white rounded-xl shadow-xl border border-slate-100 p-2 space-y-1">
-                <a href="#services" onclick="prefillService('Full Truck Load (FTL)')" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-orange-50 text-slate-700 hover:text-brand-orange transition text-xs font-semibold">
-                  <span class="p-1.5 rounded-md bg-orange-100 text-brand-orange"><i data-lucide="truck" class="w-3.5 h-3.5"></i></span>
-                  <div>Full Truck Load (FTL)</div>
-                </a>
-                <a href="#services" onclick="prefillService('Part Truck Load (PTL)')" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-sky-50 text-slate-700 hover:text-brand-primary transition text-xs font-semibold">
-                  <span class="p-1.5 rounded-md bg-sky-100 text-brand-primary"><i data-lucide="layers" class="w-3.5 h-3.5"></i></span>
-                  <div>Part Truck Load (PTL / LTL)</div>
-                </a>
-                <a href="#services" onclick="prefillService('Containerized Movement')" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700 hover:text-emerald-600 transition text-xs font-semibold">
-                  <span class="p-1.5 rounded-md bg-emerald-100 text-emerald-600"><i data-lucide="package" class="w-3.5 h-3.5"></i></span>
-                  <div>Containerized Movement</div>
-                </a>
-                <a href="#services" onclick="prefillService('Warehousing & Storage')" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-amber-50 text-slate-700 hover:text-amber-600 transition text-xs font-semibold">
-                  <span class="p-1.5 rounded-md bg-amber-100 text-amber-600"><i data-lucide="warehouse" class="w-3.5 h-3.5"></i></span>
-                  <div>Warehousing & Logistics</div>
-                </a>
-                <a href="#services" onclick="prefillService('Heavy Machinery & ODC')" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-purple-50 text-slate-700 hover:text-purple-600 transition text-xs font-semibold">
-                  <span class="p-1.5 rounded-md bg-purple-100 text-purple-600"><i data-lucide="hammer" class="w-3.5 h-3.5"></i></span>
-                  <div>Heavy Haulage & ODC</div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Fleet & Network Dropdown -->
-          <div class="relative group">
-            <button class="flex items-center gap-1 hover:text-brand-orange transition py-2 focus:outline-none">
-              Fleet & Network <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-orange group-hover:rotate-180 transition duration-200"></i>
-            </button>
-            <div class="nav-dropdown absolute left-0 top-full pt-1 w-52 z-50">
-              <div class="bg-white rounded-xl shadow-xl border border-slate-100 p-2 space-y-1">
-                <a href="#fleet" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-brand-orange transition text-xs font-semibold">
-                  <i data-lucide="truck" class="w-4 h-4 text-brand-orange"></i>
-                  <div>Our Vehicles & Fleet</div>
-                </a>
-                <a href="#network" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-brand-primary transition text-xs font-semibold">
-                  <i data-lucide="map" class="w-4 h-4 text-brand-primary"></i>
-                  <div>Pan-India Corridors</div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tools Dropdown -->
-          <div class="relative group">
-            <button class="flex items-center gap-1 hover:text-brand-orange transition py-2 focus:outline-none">
-              Tools <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-orange group-hover:rotate-180 transition duration-200"></i>
-            </button>
-            <div class="nav-dropdown absolute left-0 top-full pt-1 w-52 z-50">
-              <div class="bg-white rounded-xl shadow-xl border border-slate-100 p-2 space-y-1">
-                <a href="#calculator" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-brand-orange transition text-xs font-semibold">
-                  <i data-lucide="calculator" class="w-4 h-4 text-brand-primary"></i>
-                  <div>Rate Estimator</div>
-                </a>
-                <a href="#tracking" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-emerald-600 transition text-xs font-semibold">
-                  <i data-lucide="navigation" class="w-4 h-4 text-emerald-600"></i>
-                  <div>Live Shipment Tracking</div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <a href="#contact" class="hover:text-brand-orange transition py-2">Contact Us</a>
+          <a href="#calculator" class="text-brand-orange hover:text-brand-orangeHover transition py-2 flex items-center gap-1 font-bold">
+            <i data-lucide="calculator" class="w-3.5 h-3.5"></i> Rate Calculator
+          </a>
+          <a href="#services" class="hover:text-brand-orange transition py-2">Services</a>
+          <a href="#routes" class="hover:text-brand-orange transition py-2">Corridors & State Hubs</a>
+          <a href="#fleet" class="hover:text-brand-orange transition py-2">Fleet (8ft - 22ft)</a>
+          <a href="#tracking" class="hover:text-brand-orange transition py-2">Live GPS</a>
+          <a href="#about" class="hover:text-brand-orange transition py-2">About</a>
+          <a href="#contact" class="hover:text-brand-orange transition py-2">Contact</a>
         </nav>
 
         <!-- COMPACT HEADER ACTIONS -->
@@ -664,12 +627,12 @@
     <!-- MOBILE MENU DRAWER -->
     <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-5 space-y-1.5 shadow-xl text-xs">
       <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Home</a>
-      <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">About Us</a>
-      <a href="#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Services</a>
-      <a href="#fleet" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Our Fleet</a>
-      <a href="#network" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Pan-India Network</a>
-      <a href="#calculator" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Rate Estimator</a>
+      <a href="#calculator" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-bold text-brand-orange bg-orange-50">Rate & Cost Calculator</a>
+      <a href="#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Our Services</a>
+      <a href="#routes" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Corridors & State Hubs</a>
+      <a href="#fleet" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Fleet (8ft - 22ft 10-12 Ton)</a>
       <a href="#tracking" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Live Shipment Tracking</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">About Us</a>
       <a href="#quote" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-brand-orange hover:bg-orange-50">Get a Quote</a>
       <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-50">Contact Us</a>
       <div class="pt-2 border-t border-slate-100 space-y-2">
@@ -682,20 +645,23 @@
           </a>
         </div>
         <button onclick="openAdminModal(); toggleMobileMenu();" class="w-full py-2 rounded-lg bg-slate-800 text-slate-200 font-bold text-xs flex items-center justify-center gap-1">
-          <i data-lucide="lock" class="w-3 h-3 text-amber-400"></i> Admin Portal
+          <i data-lucide="lock" class="w-3 h-3 text-amber-400"></i> Admin Portal (Manage Services & Routes)
         </button>
       </div>
     </div>
   </header>
 
-  <!-- HOME HERO SECTION: FULL TRUCK BACKGROUND WITH TEXT OVERLAY -->
+  <!-- HOME HERO SECTION: FULL TRUCK BACKGROUND WITH GSTN & BRANDING -->
   <section id="home" class="hero-bg relative overflow-hidden min-h-[520px] lg:min-h-[580px] text-white border-b border-slate-800 flex items-center">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24">
       <div class="max-w-2xl space-y-5">
         
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/40 text-orange-300 text-[11px] font-bold uppercase tracking-wider">
-          <span class="w-1.5 h-1.5 rounded-full bg-orange-400 animate-ping"></span>
-          KATTEDAN · HYDERABAD · TELANGANA 500005
+        <!-- GSTN & LOCATION BADGE -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-orange-500/40 text-orange-300 text-[11px] font-bold uppercase tracking-wider backdrop-blur-md shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>OUR LOGISTICS PARTNER · HYDERABAD</span>
+          <span class="text-white/40">|</span>
+          <span class="text-amber-300 font-extrabold tracking-widest">GSTN: 36KXHPS3438G1ZY</span>
         </div>
 
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight drop-shadow-lg">
@@ -704,17 +670,17 @@
         </h1>
 
         <p class="text-sm sm:text-base text-slate-200 max-w-lg font-normal leading-relaxed drop-shadow">
-          <strong class="font-semibold text-white">Sachin Cargo Carriers</strong> provides dependable, secure cargo transport for businesses across India. Fast point-to-point dispatch from our central Kattedan hub.
+          <strong class="font-semibold text-white">Sachin Cargo Carriers</strong> provides dependable commercial transportation, bus express parcel delivery, and professional packers & movers across India from our central Kattedan, Hyderabad hub.
         </p>
 
         <p class="text-xs text-slate-300 italic border-l-2 border-brand-orange pl-2.5">
-          "Moving Your Business Forward, Safely and Reliably."
+          "Moving Your Business Forward, Safely and Reliably." · <strong>GSTN: 36KXHPS3438G1ZY</strong>
         </p>
 
         <!-- ACTION BUTTONS WITH REAL NUMBERS -->
         <div class="flex flex-wrap items-center gap-2 pt-1">
-          <a href="#quote" class="px-5 py-2.5 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-sm shadow-lg transition flex items-center gap-1.5">
-            <i data-lucide="file-text" class="w-4 h-4"></i> Request a Quote
+          <a href="#calculator" class="px-5 py-2.5 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-sm shadow-lg transition flex items-center gap-1.5">
+            <i data-lucide="calculator" class="w-4 h-4"></i> Estimate Freight Cost
           </a>
 
           <a href="tel:8867444552" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm border border-white/30 transition flex items-center gap-1.5">
@@ -731,22 +697,22 @@
         </div>
 
         <!-- CORE CAPABILITIES (CONCISE) -->
-        <div class="flex flex-wrap gap-4 pt-3 border-t border-white/20 text-xs">
+        <div class="flex flex-wrap gap-3.5 pt-3 border-t border-white/20 text-xs">
           <div class="flex items-center gap-1.5">
-            <span class="p-1.5 rounded-lg bg-orange-500/30 text-brand-orange"><i data-lucide="shield-check" class="w-4 h-4"></i></span>
-            <span class="text-slate-100 font-semibold">100% Safe & Insured</span>
+            <span class="p-1.5 rounded-lg bg-orange-500/30 text-brand-orange"><i data-lucide="truck" class="w-4 h-4"></i></span>
+            <span class="text-slate-100 font-semibold">8ft to 22ft (10-12 Ton)</span>
           </div>
           <div class="flex items-center gap-1.5">
-            <span class="p-1.5 rounded-lg bg-sky-500/30 text-sky-400"><i data-lucide="map" class="w-4 h-4"></i></span>
-            <span class="text-slate-100 font-semibold">Pan-India Reach</span>
+            <span class="p-1.5 rounded-lg bg-sky-500/30 text-sky-400"><i data-lucide="zap" class="w-4 h-4"></i></span>
+            <span class="text-slate-100 font-semibold">Daily Bangalore Express</span>
           </div>
           <div class="flex items-center gap-1.5">
-            <span class="p-1.5 rounded-lg bg-emerald-500/30 text-emerald-400"><i data-lucide="radio" class="w-4 h-4"></i></span>
-            <span class="text-slate-100 font-semibold">Live GPS Tracking</span>
+            <span class="p-1.5 rounded-lg bg-emerald-500/30 text-emerald-400"><i data-lucide="bus" class="w-4 h-4"></i></span>
+            <span class="text-slate-100 font-semibold">Bus Express Delivery</span>
           </div>
           <div class="flex items-center gap-1.5">
-            <span class="p-1.5 rounded-lg bg-amber-500/30 text-amber-400"><i data-lucide="headphones" class="w-4 h-4"></i></span>
-            <span class="text-slate-100 font-semibold">Care: 9505444552</span>
+            <span class="p-1.5 rounded-lg bg-purple-500/30 text-purple-300"><i data-lucide="package" class="w-4 h-4"></i></span>
+            <span class="text-slate-100 font-semibold">Packers & Movers</span>
           </div>
         </div>
 
@@ -754,7 +720,311 @@
     </div>
   </section>
 
-  <!-- 3 HIGHLIGHT CARDS -->
+  <!-- ============================================================== -->
+  <!-- 1. FREIGHT & RATE COST CALCULATOR (PLACED HIGH UP FOR INSTANT ESTIMATION) -->
+  <!-- ============================================================== -->
+  <section id="calculator" class="py-10 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700 relative z-30 -mt-2">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-orange-500/30">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-orange-100 text-brand-orange text-[10px] font-extrabold uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-ping"></span> Instant Cost Calculator
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900">
+              Calculate Transportation Cost &amp; Transit Time
+            </h2>
+            <p class="text-xs text-slate-500">
+              Direct dispatch from Kattedan, Hyderabad Hub · Certified 8ft to 22ft (10-12 Ton Passing) Fleet
+            </p>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <span class="px-3 py-1 rounded-xl bg-slate-900 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i> GSTN: 36KXHPS3438G1ZY
+            </span>
+          </div>
+        </div>
+
+        <form id="heroQuickEstimateForm" class="space-y-4 mt-5" onsubmit="handleHeroEstimate(event)">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5">
+            
+            <!-- Pickup (Fixed from Kattedan Hub) -->
+            <div class="md:col-span-4">
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+                Pickup Origin (Hub)
+              </label>
+              <div class="relative">
+                <i data-lucide="map-pin" class="w-4 h-4 absolute left-3 top-3 text-brand-orange"></i>
+                <input type="text" id="quickPickup" value="Kattedan, Hyderabad (500005)" class="w-full pl-9 pr-3 py-2 text-xs font-bold border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-800 focus:outline-none focus:border-brand-orange" required>
+              </div>
+            </div>
+
+            <!-- Destination City with Famous Places -->
+            <div class="md:col-span-4">
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+                Destination (Drop City / State Hub)
+              </label>
+              <div class="relative">
+                <i data-lucide="navigation" class="w-4 h-4 absolute left-3 top-3 text-sky-500"></i>
+                <select id="quickDrop" class="w-full pl-9 pr-3 py-2 text-xs font-semibold border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:outline-none bg-white">
+                  <option value="bengaluru">Bengaluru, Karnataka (Peenya / Hosur · 570 km · Daily Express)</option>
+                  <option value="mumbai">Mumbai &amp; Pune, Maharashtra (Bhiwandi / Chakan · 710 km)</option>
+                  <option value="chennai">Chennai &amp; Coimbatore, Tamil Nadu (Sriperumbudur · 630 km)</option>
+                  <option value="vijayawada">Vijayawada &amp; Vizag, AP (Autonagar · 275 - 620 km)</option>
+                  <option value="ahmedabad">Ahmedabad &amp; Surat, Gujarat (Sanand · 1,190 km)</option>
+                  <option value="delhi">Delhi NCR (New Delhi, Gurugram, Okhla · 1,580 km)</option>
+                  <option value="pune">Pune, Maharashtra (Chakan Auto Hub · 560 km)</option>
+                  <option value="nagpur">Nagpur, Central Hub (500 km)</option>
+                  <option value="kolkata">Kolkata, West Bengal (1,490 km)</option>
+                  <option value="hyderabad">Local Hyderabad &amp; Telangana Districts</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Vehicle Selection: 8ft to 22ft (10-12 Ton passing) -->
+            <div class="md:col-span-4">
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+                Vehicle Type (8ft to 22ft)
+              </label>
+              <div class="relative">
+                <i data-lucide="truck" class="w-4 h-4 absolute left-3 top-3 text-emerald-600"></i>
+                <select id="quickVehicle" class="w-full pl-9 pr-3 py-2 text-xs font-semibold border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:outline-none bg-white">
+                  <option value="8ft">8 Feet Mini Truck (1.0 - 1.5 Ton Passing)</option>
+                  <option value="14ft">14 Feet Commercial Vehicle (3.5 - 4 Ton Passing)</option>
+                  <option value="17ft" selected>17 Feet Medium Freight (5 - 7 Ton Passing)</option>
+                  <option value="19ft">19 Feet Heavy Carrier (8 - 9 Ton Passing)</option>
+                  <option value="20ft">20 Feet Multi-Axle Truck (10 - 11 Ton Passing)</option>
+                  <option value="22ft">22 Feet Heavy Carrier (10 - 12 Ton Passing Certified)</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Second Row: Cargo weight and submit -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 items-end">
+            <div class="sm:col-span-4">
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+                Approx Cargo Weight (Tons)
+              </label>
+              <div class="relative">
+                <i data-lucide="layers" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+                <input type="number" id="quickWeight" min="0.5" max="15" step="0.5" value="5" class="w-full pl-9 pr-3 py-2 text-xs font-bold border-2 border-slate-200 rounded-xl focus:border-brand-orange focus:outline-none" required>
+              </div>
+            </div>
+
+            <div class="sm:col-span-8 flex gap-2">
+              <button type="submit" class="flex-1 py-2.5 px-5 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white font-black text-xs uppercase tracking-wider shadow-lg transition flex items-center justify-center gap-2">
+                <i data-lucide="calculator" class="w-4 h-4"></i> Get Instant Freight Rate
+              </button>
+              <a href="#quote" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center justify-center gap-1">
+                Custom Quote <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </form>
+
+        <!-- CALCULATION RESULT DISPLAY -->
+        <div id="quickEstimateResult" class="hidden mt-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-orange-200 rounded-2xl text-xs space-y-2.5">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-2 border-b border-orange-200/80">
+            <div>
+              <span class="text-[10px] font-bold text-brand-orange uppercase">Estimated Corridor:</span>
+              <div class="font-extrabold text-slate-900 text-sm" id="resRouteName">Hyderabad ⇄ Bengaluru</div>
+            </div>
+            <div class="flex gap-4 text-slate-700 text-xs">
+              <div>Distance: <strong id="resDistance" class="text-slate-900 font-bold">570 km</strong></div>
+              <div>Transit: <strong id="resTransit" class="text-slate-900 font-bold">12-14 hrs</strong></div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+              <span class="text-xs text-slate-600 block">Estimated Freight Tariff:</span>
+              <strong id="resPrice" class="font-black text-brand-orange text-xl sm:text-2xl">₹14,500 - ₹17,200</strong>
+              <span class="text-[10px] text-slate-500 block">Includes Toll, Fuel &amp; 24/7 GPS Fleet Monitoring</span>
+            </div>
+            <div class="flex gap-2 w-full sm:w-auto">
+              <a id="resWhatsAppBtn" href="#" target="_blank" class="flex-1 sm:flex-none text-center py-2 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow transition">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Book via WhatsApp (8867444552)
+              </a>
+              <a href="#quote" onclick="transferEstimateToQuote()" class="flex-1 sm:flex-none text-center py-2 px-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1 transition">
+                Book Online
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 2. AUTO-SLIDING PROFESSIONAL SHOWCASE (CAROUSEL BANNER) -->
+  <!-- ============================================================== -->
+  <section class="py-8 bg-slate-100 border-b border-slate-200 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="relative bg-slate-900 rounded-3xl overflow-hidden shadow-xl border border-slate-800 text-white min-h-[300px] sm:min-h-[320px] flex items-center">
+        
+        <!-- SLIDE 1: Hyderabad to Bangalore Daily Express -->
+        <div class="slide-item active w-full p-6 sm:p-10" id="slide1">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-7 space-y-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-wider border border-orange-500/40">
+                <i data-lucide="zap" class="w-3.5 h-3.5"></i> Priority Corridor Service
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+                Daily Direct Express: <span class="text-brand-orange">Hyderabad ⇄ Bengaluru</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Direct two-way scheduled departures twice daily. Fast 12-14 hours transit connecting Hyderabad Kattedan Central Hub to Peenya Industrial Area, Hosur, and Whitefield.
+              </p>
+              <div class="flex flex-wrap gap-2 text-[11px] text-slate-300 pt-1">
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● 8ft to 22ft (10-12 Ton)</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● 12-14 Hours Transit</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● Daily 2-Way Runs</span>
+              </div>
+              <div class="pt-2 flex gap-3">
+                <a href="#quote" onclick="prefillService('Hyderabad to Bangalore Daily Express')" class="px-4 py-2 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold transition flex items-center gap-1">
+                  Book Bangalore Express <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+            <div class="md:col-span-5 relative">
+              <img src="/assets/truck_orange_hero.png" alt="Hyderabad to Bangalore Express Truck" class="w-full h-48 sm:h-56 object-cover rounded-2xl shadow-2xl border border-white/10">
+              <div class="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] text-orange-300 font-bold">
+                Kattedan ⇄ Peenya / Hosur
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: Bus Express Delivery -->
+        <div class="slide-item w-full p-6 sm:p-10" id="slide2">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-7 space-y-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider border border-emerald-500/40">
+                <i data-lucide="bus" class="w-3.5 h-3.5"></i> Superfast Parcel Cargo
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+                Bus Express: <span class="text-emerald-400">Same-Day &amp; Overnight Parcel Delivery</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Superfast inter-state bus cargo logistics for urgent parcels, spare parts, commercial samples, and priority cartons. Early morning depot pickup &amp; delivery guarantee.
+              </p>
+              <div class="flex flex-wrap gap-2 text-[11px] text-slate-300 pt-1">
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● Urgent Carton Cargo</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● Early Morning Arrival</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● Bus Depot Coordination</span>
+              </div>
+              <div class="pt-2 flex gap-3">
+                <a href="#quote" onclick="prefillService('Bus Express Parcel Delivery')" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1">
+                  Book Bus Parcel Delivery <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+            <div class="md:col-span-5 relative">
+              <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="Bus Express Cargo Delivery" class="w-full h-48 sm:h-56 object-cover rounded-2xl shadow-2xl border border-white/10">
+              <div class="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] text-emerald-300 font-bold">
+                Inter-State Bus Parcel Network
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: Packers and Movers -->
+        <div class="slide-item w-full p-6 sm:p-10" id="slide3">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-7 space-y-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold uppercase tracking-wider border border-purple-500/40">
+                <i data-lucide="package" class="w-3.5 h-3.5"></i> Complete Relocation Solution
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+                Packers &amp; Movers: <span class="text-purple-400">Safe Household &amp; Office Shifting</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                5-layer bubble packaging, specialized dismantling, trained loading crew, waterproof covered containers, and complete transit insurance for zero-damage relocation.
+              </p>
+              <div class="flex flex-wrap gap-2 text-[11px] text-slate-300 pt-1">
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● 5-Layer Bubble Packing</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● Zero Damage Protection</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● Doorstep Unpacking</span>
+              </div>
+              <div class="pt-2 flex gap-3">
+                <a href="#quote" onclick="prefillService('Packers and Movers Relocation')" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition flex items-center gap-1">
+                  Get Packers &amp; Movers Quote <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+            <div class="md:col-span-5 relative">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Packers and Movers Packaging and Shifting" class="w-full h-48 sm:h-56 object-cover rounded-2xl shadow-2xl border border-white/10">
+              <div class="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] text-purple-300 font-bold">
+                Professional 5-Layer Bubble Packing
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: 22ft 10-12 Ton Commercial Fleet -->
+        <div class="slide-item w-full p-6 sm:p-10" id="slide4">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-7 space-y-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold uppercase tracking-wider border border-sky-500/40">
+                <i data-lucide="truck" class="w-3.5 h-3.5"></i> Heavy Commercial Logistics
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+                22 Feet Fleet: <span class="text-sky-400">10-12 Ton Passing Heavy Commercial</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Certified 10-12 ton passing vehicles from 8 feet city pickups to 22 feet heavy long-deck containers. High volume, heavy payload, 24/7 live GPS satellite tracking.
+              </p>
+              <div class="flex flex-wrap gap-2 text-[11px] text-slate-300 pt-1">
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● Certified 10-12 Ton Passing</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● 20ft &amp; 22ft High-Deck</span>
+                <span class="px-2.5 py-1 bg-white/10 rounded-lg">● GPS Satellite Monitored</span>
+              </div>
+              <div class="pt-2 flex gap-3">
+                <a href="#fleet" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center gap-1">
+                  View Fleet Specifications <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+            <div class="md:col-span-5 relative">
+              <img src="/assets/truck_preloader.png" alt="22 Feet 10-12 Ton Passing Truck" class="w-full h-48 sm:h-56 object-cover rounded-2xl shadow-2xl border border-white/10">
+              <div class="absolute bottom-2 right-2 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] text-sky-300 font-bold">
+                22ft 10-12 Ton Passing Certified
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-brand-orange text-white flex items-center justify-center transition border border-white/20">
+          <i data-lucide="chevron-left" class="w-5 h-5"></i>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-brand-orange text-white flex items-center justify-center transition border border-white/20">
+          <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Carousel Dots -->
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
+          <button onclick="goToSlide(0)" class="slide-dot active w-6 h-2 rounded-full bg-brand-orange transition-all duration-300"></button>
+          <button onclick="goToSlide(1)" class="slide-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300"></button>
+          <button onclick="goToSlide(2)" class="slide-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300"></button>
+          <button onclick="goToSlide(3)" class="slide-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300"></button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 3. HIGHLIGHT PILLARS -->
+  <!-- ============================================================== -->
   <section class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       
@@ -765,7 +1035,7 @@
         </div>
         <h3 class="text-base font-bold text-slate-900 mb-1">About Sachin Cargo Carriers</h3>
         <p class="text-xs text-slate-600 mb-3 leading-relaxed">
-          Operating from Kattedan, Hyderabad. Efficient, secure transport solutions built on operational integrity. Trusted by leading manufacturers and businesses across India.
+          Operating from Kattedan, Hyderabad (GSTN: 36KXHPS3438G1ZY). Dependable, timely commercial freight, bus express cargo, and packers &amp; movers solutions across India.
         </p>
         <a href="#about" class="inline-flex items-center gap-1 text-xs font-bold text-brand-primary hover:text-brand-primaryDark transition">
           Learn More <i data-lucide="arrow-right" class="w-3 h-3"></i>
@@ -777,12 +1047,12 @@
         <div class="w-10 h-10 rounded-xl bg-sky-100 text-brand-primary flex items-center justify-center mb-3">
           <i data-lucide="box" class="w-5 h-5"></i>
         </div>
-        <h3 class="text-base font-bold text-slate-900 mb-1">Our Services</h3>
+        <h3 class="text-base font-bold text-slate-900 mb-1">Our Core Services</h3>
         <p class="text-xs text-slate-600 mb-3 leading-relaxed">
-          Comprehensive FTL full-truckload, PTL part-load, containerized movement, bonded logistics, and safe warehousing facilities under one roof.
+          Daily Bangalore Express, Bus Express Parcel Delivery, Professional Packers &amp; Movers, and FTL from 8ft to 22ft (10-12 Ton passing) under one roof.
         </p>
         <a href="#services" class="inline-flex items-center gap-1 text-xs font-bold text-brand-primary hover:text-brand-primaryDark transition">
-          View Services <i data-lucide="arrow-right" class="w-3 h-3"></i>
+          View All Services <i data-lucide="arrow-right" class="w-3 h-3"></i>
         </a>
       </div>
 
@@ -793,105 +1063,13 @@
         </div>
         <h3 class="text-base font-bold text-slate-900 mb-1">Why Choose Us?</h3>
         <p class="text-xs text-slate-600 mb-3 leading-relaxed">
-          Experienced & trusted logistics partner with GPS live vehicle tracking, 24/7 dedicated dispatch manager, zero transit loss policy, and competitive rates.
+          Certified 10-12 Ton passing fleet, zero transit loss, 24/7 dedicated dispatch manager at Kattedan Hub, live GPS vehicle tracking, and verified drivers.
         </p>
         <a href="#about" class="inline-flex items-center gap-1 text-xs font-bold text-brand-primary hover:text-brand-primaryDark transition">
           Know More <i data-lucide="arrow-right" class="w-3 h-3"></i>
         </a>
       </div>
 
-    </div>
-  </section>
-
-  <!-- RATE CALCULATOR SECTION -->
-  <section id="calculator" class="py-12 bg-slate-100 border-y border-slate-200">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-white rounded-3xl p-5 sm:p-7 shadow-lg border border-slate-200">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-brand-orange">Freight Route Calculator</span>
-            <h3 class="text-lg font-bold text-slate-900">Instant Rate & Distance Estimator</h3>
-          </div>
-          <span class="p-2 rounded-lg bg-orange-50 text-brand-orange">
-            <i data-lucide="calculator" class="w-5 h-5"></i>
-          </span>
-        </div>
-
-        <form id="heroQuickEstimateForm" class="space-y-3 mt-4" onsubmit="handleHeroEstimate(event)">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Pickup Location (Origin)</label>
-              <div class="relative">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 absolute left-3 top-2.5 text-brand-orange"></i>
-                <input type="text" id="quickPickup" value="Kattedan, Hyderabad" class="w-full pl-9 pr-3 py-1.5 text-xs font-medium border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-orange focus:outline-none" required>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Destination (Drop City)</label>
-              <div class="relative">
-                <i data-lucide="navigation" class="w-3.5 h-3.5 absolute left-3 top-2.5 text-sky-500"></i>
-                <select id="quickDrop" class="w-full pl-9 pr-3 py-1.5 text-xs font-medium border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-orange focus:outline-none">
-                  <option value="mumbai">Mumbai, Maharashtra (710 km)</option>
-                  <option value="bengaluru">Bengaluru, Karnataka (570 km)</option>
-                  <option value="chennai">Chennai, Tamil Nadu (630 km)</option>
-                  <option value="delhi">Delhi / NCR (1,580 km)</option>
-                  <option value="pune">Pune, Maharashtra (560 km)</option>
-                  <option value="kolkata">Kolkata, West Bengal (1,490 km)</option>
-                  <option value="ahmedabad">Ahmedabad, Gujarat (1,190 km)</option>
-                  <option value="vijayawada">Vijayawada, AP (275 km)</option>
-                  <option value="visakhapatnam">Visakhapatnam, AP (620 km)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Weight (Tons)</label>
-              <input type="number" id="quickWeight" min="1" max="50" value="5" class="w-full px-3 py-1.5 text-xs font-medium border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-orange focus:outline-none">
-            </div>
-            <div>
-              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Truck Type</label>
-              <select id="quickVehicle" class="w-full px-2 py-1.5 text-xs font-medium border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-orange focus:outline-none">
-                <option value="standard">Standard Truck</option>
-                <option value="20ft">20ft Container</option>
-                <option value="32ft">32ft MXL Container</option>
-                <option value="Trailer">Heavy Trailer</option>
-              </select>
-            </div>
-          </div>
-
-          <button type="submit" class="w-full py-2.5 px-4 rounded-lg bg-brand-navy hover:bg-slate-900 text-white font-bold text-xs tracking-wide transition flex items-center justify-center gap-1.5 shadow">
-            <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-400"></i> Calculate Estimated Freight
-          </button>
-        </form>
-
-        <!-- RESULT BOX -->
-        <div id="quickEstimateResult" class="hidden mt-3 p-3.5 bg-amber-50/90 border border-amber-200 rounded-xl text-xs space-y-1">
-          <div class="flex justify-between items-center text-slate-700">
-            <span>Estimated Distance:</span>
-            <strong id="resDistance" class="text-slate-900 font-bold">710 km</strong>
-          </div>
-          <div class="flex justify-between items-center text-slate-700">
-            <span>Transit Window:</span>
-            <strong id="resTransit" class="text-slate-900 font-bold">16-18 hrs</strong>
-          </div>
-          <div class="flex justify-between items-center pt-1 border-t border-amber-200">
-            <span class="font-bold text-slate-800">Est. Freight Tariff:</span>
-            <strong id="resPrice" class="font-black text-brand-orange text-sm">₹32,500 - ₹36,000</strong>
-          </div>
-          <div class="grid grid-cols-2 gap-2 mt-2 pt-1 border-t border-amber-200">
-            <a id="resWhatsAppBtn" href="#" target="_blank" class="block text-center py-1.5 bg-emerald-600 text-white rounded-lg font-bold text-[11px] hover:bg-emerald-700 transition">
-              WhatsApp 8867444552
-            </a>
-            <a id="resWhatsAppBtn2" href="#" target="_blank" class="block text-center py-1.5 bg-emerald-700 text-white rounded-lg font-bold text-[11px] hover:bg-emerald-800 transition">
-              WhatsApp 9632369433
-            </a>
-          </div>
-        </div>
-
-      </div>
     </div>
   </section>
 
@@ -953,136 +1131,577 @@
     </div>
   </section>
 
-  <!-- OUR SERVICES SECTION -->
-  <section id="services" class="py-16 bg-slate-50">
+  <!-- ============================================================== -->
+  <!-- 4. OUR SERVICES SECTION (DYNAMIC & ADMIN MANAGED) -->
+  <!-- ============================================================== -->
+  <section id="services" class="py-16 bg-slate-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="text-center max-w-3xl mx-auto space-y-2 mb-12">
-        <span class="px-3 py-1 rounded-full bg-sky-100 text-brand-primary text-xs font-bold uppercase tracking-wider">
-          Comprehensive Logistics
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
-          Our Transportation & Freight Services
-        </h2>
-        <p class="text-slate-600 text-xs sm:text-sm">
-          Tailored logistics services engineered for reliability, safety, and business continuity across regional and national corridors.
-        </p>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-3 mb-10">
+        <div class="space-y-1.5 max-w-2xl">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-brand-orange text-xs font-bold uppercase tracking-wider">
+            <i data-lucide="zap" class="w-3.5 h-3.5"></i> Comprehensive Transportation Solutions
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Our Transportation, Express &amp; Moving Services
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Direct dispatches from our central Kattedan, Hyderabad Hub. Fully integrated commercial logistics, daily express corridors, bus express parcel delivery, and professional packers &amp; movers.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openAdminModal('services')" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 shadow transition">
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-brand-orange"></i> Admin: Add / Manage Services
+          </button>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- DYNAMIC SERVICES GRID (POPULATED VIA /api/services & REAL-TIME ADMIN SYNC) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dynamicServicesGrid">
         
-        <!-- Service 1: Full Truck Load -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-orange transition group shadow-sm">
-          <div class="w-11 h-11 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center mb-4 group-hover:scale-105 transition">
-            <i data-lucide="truck" class="w-5 h-5"></i>
+        <!-- Service 1: Hyderabad to Bangalore Daily Express -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-orange-500/20 hover:border-brand-orange transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center group-hover:scale-110 transition">
+                <i data-lucide="zap" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-orange-50 text-brand-orange border border-orange-200 text-[10px] font-extrabold uppercase">
+                Daily 2-Way Express
+              </span>
+            </div>
+            <h3 class="text-base font-extrabold text-slate-900 mb-2">Hyderabad ⇄ Bengaluru Daily Express</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              Daily direct scheduled logistics between Hyderabad (Kattedan Hub) and Bengaluru (Peenya / Hosur / Whitefield). Fast 12-14 hours transit with GPS tracking and certified 8ft to 22ft (10-12 Ton passing) fleet.
+            </p>
+            <ul class="text-[11px] text-slate-500 space-y-1.5 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> 12-14 Hours Guaranteed Overnight Transit</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Daily Morning &amp; Night 2-Way Departures</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Dedicated 8ft to 22ft (10-12 Ton Passing) Vehicles</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Doorstep Pickup &amp; Safe Consignee Delivery</li>
+            </ul>
           </div>
-          <h3 class="text-base font-bold text-slate-900 mb-1.5">Full Truck Load (FTL) Freight</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-3">
-            Dedicated point-to-point transportation with exclusive trucks assigned to your consignment. Direct delivery with minimal handling, maximum security, and rapid transit times.
-          </p>
-          <ul class="text-[11px] text-slate-500 space-y-1 mb-4">
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> No transshipment delays</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Guaranteed direct transit times</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Full container seals & GPS logs</li>
-          </ul>
-          <a href="#quote" onclick="prefillService('Full Truck Load (FTL)')" class="text-xs font-bold text-brand-orange hover:text-brand-orangeHover flex items-center gap-1">
-            Book FTL Transport <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-          </a>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Tariff From</span>
+              <strong class="text-sm font-black text-brand-orange">₹14,500</strong>
+            </div>
+            <a href="#quote" onclick="prefillService('Hyderabad to Bangalore Daily Express')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold transition flex items-center gap-1">
+              Book Route <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
 
-        <!-- Service 2: Part Truck Load -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-primary transition group shadow-sm">
-          <div class="w-11 h-11 rounded-xl bg-sky-100 text-brand-primary flex items-center justify-center mb-4 group-hover:scale-105 transition">
-            <i data-lucide="layers" class="w-5 h-5"></i>
+        <!-- Service 2: Bus Express Delivery -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-emerald-500/20 hover:border-emerald-500 transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition">
+                <i data-lucide="bus" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold uppercase">
+                Same-Day / Overnight
+              </span>
+            </div>
+            <h3 class="text-base font-extrabold text-slate-900 mb-2">Bus Express Parcel &amp; Cargo Delivery</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              High-priority bus express parcel network connecting major South Indian cities. Ideal for urgent spare parts, sample boxes, documents, textile parcels, and medical items with early morning delivery.
+            </p>
+            <ul class="text-[11px] text-slate-500 space-y-1.5 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Same-Day or Next-Morning Terminal Delivery</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Direct Inter-State Bus Network Coordination</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Carton, Box &amp; Envelope Priority Handling</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Real-time Phone &amp; WhatsApp Consignment Updates</li>
+            </ul>
           </div>
-          <h3 class="text-base font-bold text-slate-900 mb-1.5">Part Truck Load (PTL / LTL)</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-3">
-            Cost-effective consolidated shipping for smaller shipments that do not require an entire container. Pay only for the space and weight your cargo occupies.
-          </p>
-          <ul class="text-[11px] text-slate-500 space-y-1 mb-4">
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Daily departures from Kattedan, Hyderabad</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Safe barcode parcel tagging</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Substantial freight cost savings</li>
-          </ul>
-          <a href="#quote" onclick="prefillService('Part Truck Load (PTL)')" class="text-xs font-bold text-brand-primary hover:text-brand-primaryDark flex items-center gap-1">
-            Book PTL Service <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-          </a>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Parcels From</span>
+              <strong class="text-sm font-black text-emerald-600">₹450</strong>
+            </div>
+            <a href="#quote" onclick="prefillService('Bus Express Parcel Delivery')" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1">
+              Ship Parcel <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
 
-        <!-- Service 3: Container Transportation -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 transition group shadow-sm">
-          <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
-            <i data-lucide="package" class="w-5 h-5"></i>
+        <!-- Service 3: Packers and Movers -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-purple-500/20 hover:border-purple-500 transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center group-hover:scale-110 transition">
+                <i data-lucide="package" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-[10px] font-extrabold uppercase">
+                Zero Damage Guarantee
+              </span>
+            </div>
+            <h3 class="text-base font-extrabold text-slate-900 mb-2">Packers and Movers (Home &amp; Corporate)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              Comprehensive packing, moving, and safe relocation service for residences, corporate offices, and factory setups. 5-layer bubble packaging, specialized furniture disassembly, transit insurance, and doorstep unpacking.
+            </p>
+            <ul class="text-[11px] text-slate-500 space-y-1.5 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Multi-Layer Bubble Wrap &amp; Corrugated Protection</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Experienced Professional Loading &amp; Unloading Team</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Comprehensive Transit Insurance Coverage Available</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Local Hyderabad Shifts &amp; Inter-State Relocations</li>
+            </ul>
           </div>
-          <h3 class="text-base font-bold text-slate-900 mb-1.5">Containerized Fleet Logistics</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-3">
-            Weatherproof closed-body containers designed specifically for electronics, FMCG, retail goods, and delicate automotive parts.
-          </p>
-          <ul class="text-[11px] text-slate-500 space-y-1 mb-4">
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> 100% Weatherproof seal against rain</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> High-cube cubic capacity</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Tamper-evident lock seals</li>
-          </ul>
-          <a href="#quote" onclick="prefillService('Container Trucking')" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
-            Book Container <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-          </a>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Shifting From</span>
+              <strong class="text-sm font-black text-purple-600">₹6,500</strong>
+            </div>
+            <a href="#quote" onclick="prefillService('Packers and Movers Relocation')" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition flex items-center gap-1">
+              Get Moving Quote <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
 
-        <!-- Service 4: Warehousing & Storage -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-amber-500 transition group shadow-sm">
-          <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
-            <i data-lucide="warehouse" class="w-5 h-5"></i>
+        <!-- Service 4: Full Truck Load (FTL) 8ft - 22ft Fleet -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-sky-500/20 hover:border-sky-500 transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center group-hover:scale-110 transition">
+                <i data-lucide="truck" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200 text-[10px] font-extrabold uppercase">
+                10-12 Ton Passing
+              </span>
+            </div>
+            <h3 class="text-base font-extrabold text-slate-900 mb-2">Full Truck Load (FTL) 8ft - 22ft Fleet</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              Dedicated commercial vehicles ranging from 8 feet city pickups to 22 feet 10-12 ton passing heavy carriers. Exclusive point-to-point transport for industrial raw materials, retail distribution, and bulk cargo.
+            </p>
+            <ul class="text-[11px] text-slate-500 space-y-1.5 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Complete Fleet: 8ft, 14ft, 17ft, 20ft &amp; 22ft</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Certified 10-12 Ton Passing Commercial Capacity</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> 24/7 Live All-India GPS Tracking on all Trips</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Digital POD &amp; Instant Dispatch Confirmation</li>
+            </ul>
           </div>
-          <h3 class="text-base font-bold text-slate-900 mb-1.5">Warehousing & Storage</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-3">
-            Secure, CCTV-monitored hub facilities in Kattedan, Hyderabad with forklift loading, inventory segregation, and cross-docking capabilities.
-          </p>
-          <ul class="text-[11px] text-slate-500 space-y-1 mb-4">
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> 24/7 Security and fire safety</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Short-term & long-term storage</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Palletized handling & inventory logs</li>
-          </ul>
-          <a href="#quote" onclick="prefillService('Warehousing & Storage')" class="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1">
-            Enquire Warehousing <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-          </a>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Full Truck From</span>
+              <strong class="text-sm font-black text-sky-600">₹8,000</strong>
+            </div>
+            <a href="#quote" onclick="prefillService('Full Truck Load (FTL)')" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition flex items-center gap-1">
+              Book FTL Truck <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
 
-        <!-- Service 5: Heavy & Project Cargo (ODC) -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-purple-500 transition group shadow-sm">
-          <div class="w-11 h-11 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
-            <i data-lucide="hammer" class="w-5 h-5"></i>
+        <!-- Service 5: Warehousing & Logistics Hub -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-amber-500/20 hover:border-amber-500 transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center group-hover:scale-110 transition">
+                <i data-lucide="warehouse" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-extrabold uppercase">
+                Strategic Hub
+              </span>
+            </div>
+            <h3 class="text-base font-extrabold text-slate-900 mb-2">Warehousing &amp; Logistics Hub - Kattedan</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+              Modern warehousing, inventory staging, and cargo consolidation facility located right at Kattedan, Hyderabad 500005. Close proximity to national highway corridors with 24/7 security and loading docks.
+            </p>
+            <ul class="text-[11px] text-slate-500 space-y-1.5 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Round-the-clock Security, CCTV &amp; Fire-Safety</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Material Handling, Pallet Storage &amp; Cross-Docking</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Short-Term Consignment Buffer &amp; Staging</li>
+              <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Immediate National Highway Access (NH 44 / ORR)</li>
+            </ul>
           </div>
-          <h3 class="text-base font-bold text-slate-900 mb-1.5">Heavy Haulage & ODC Cargo</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-3">
-            Specialized multi-axle trailers and low-bed haulers for over-dimensional machinery, industrial boilers, steel coils, and infrastructure construction equipment.
-          </p>
-          <ul class="text-[11px] text-slate-500 space-y-1 mb-4">
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Route survey & RTO clearance support</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Heavy crane loading coordination</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Heavy transit pilot escorts</li>
-          </ul>
-          <a href="#quote" onclick="prefillService('Heavy Machinery & ODC')" class="text-xs font-bold text-purple-600 hover:text-purple-700 flex items-center gap-1">
-            Book Heavy Haulage <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-          </a>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Storage From</span>
+              <strong class="text-sm font-black text-amber-600">₹12 / sq.ft</strong>
+            </div>
+            <a href="#quote" onclick="prefillService('Warehousing & Storage')" class="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition flex items-center gap-1">
+              Enquire Storage <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
 
-        <!-- Service 6: Express Interstate Delivery -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-rose-500 transition group shadow-sm">
-          <div class="w-11 h-11 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
-            <i data-lucide="zap" class="w-5 h-5"></i>
+      </div>
+
+      <!-- PACKERS & MOVERS PROFESSIONAL AUTO-SLIDESHOW GALLERY -->
+      <div class="mt-12 bg-white rounded-3xl p-6 sm:p-8 border-2 border-purple-200 shadow-xl overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-6 space-y-4">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Specialized Packers &amp; Movers Service
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
+              Safe &amp; Stress-Free Relocation: <span class="text-purple-600">5-Layer Protective Packaging</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Whether you are moving a 1BHK/2BHK/3BHK apartment across town or shifting a corporate headquarters to Bengaluru, Mumbai, or Chennai, Sachin Cargo Carriers guarantees safe, zero-scratch relocation.
+            </p>
+            <div class="grid grid-cols-2 gap-3 text-xs text-slate-700 pt-1">
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <strong class="block text-slate-900 font-bold mb-0.5">📦 5-Layer Bubble Packing</strong>
+                <span class="text-[11px] text-slate-500">Fragile items, glassware &amp; electronics cushioned safely.</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <strong class="block text-slate-900 font-bold mb-0.5">🛋 Furniture Disassembly</strong>
+                <span class="text-[11px] text-slate-500">Beds, wardrobes &amp; modular units disassembled &amp; re-assembled.</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <strong class="block text-slate-900 font-bold mb-0.5">🚚 Sealed Weatherproof Truck</strong>
+                <span class="text-[11px] text-slate-500">Dedicated enclosed vehicles (8ft - 22ft, 10-12 Ton).</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <strong class="block text-slate-900 font-bold mb-0.5">🛡 Complete Transit Insurance</strong>
+                <span class="text-[11px] text-slate-500">Comprehensive declared-value coverage against transit risk.</span>
+              </div>
+            </div>
+
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <a href="https://wa.me/918867444552?text=Hello%20Sachin%20Cargo%20Carriers,%20I%20need%20a%20Packers%20and%20Movers%20quote" target="_blank" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
+                <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp for Shifting Quote (8867444552)
+              </a>
+              <a href="tel:9632369433" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition flex items-center gap-1.5">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-purple-600"></i> Call 9632369433
+              </a>
+            </div>
           </div>
-          <h3 class="text-base font-bold text-slate-900 mb-1.5">Express Interstate Transit</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-3">
-            Dual-driver fast-track transit options between Hyderabad and major commercial hubs like Mumbai, Bengaluru, and Chennai for mission-critical deliveries.
+
+          <!-- SLIDING GALLERY CONTAINER -->
+          <div class="lg:col-span-6">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-purple-200 min-h-[300px] sm:min-h-[340px] bg-slate-950 flex items-center group" id="pmSlideContainer">
+              
+              <!-- PM Slide 1 -->
+              <div class="pm-slide active absolute inset-0 w-full h-full transition-opacity duration-700" id="pmSlide1">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Professional Bubble Wrap Packaging" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex flex-col justify-end p-5">
+                  <span class="px-2 py-0.5 rounded bg-purple-600 text-white text-[10px] font-extrabold uppercase w-max mb-1">Step 1: Heavy-Duty Packaging</span>
+                  <h4 class="text-sm sm:text-base font-bold text-white">5-Layer Bubble Packing &amp; Carton Boxing</h4>
+                  <p class="text-[11px] text-slate-300">High-grade air-bubble rolls, stretch wrap, and corrugated corner protectors.</p>
+                </div>
+              </div>
+
+              <!-- PM Slide 2 -->
+              <div class="pm-slide opacity-0 absolute inset-0 w-full h-full transition-opacity duration-700 pointer-events-none" id="pmSlide2">
+                <img src="https://images.unsplash.com/photo-1584824486509-112e4181ff6b?auto=format&fit=crop&w=800&q=80" alt="Furniture Disassembly & Wrapping" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex flex-col justify-end p-5">
+                  <span class="px-2 py-0.5 rounded bg-purple-600 text-white text-[10px] font-extrabold uppercase w-max mb-1">Step 2: Furniture Protection</span>
+                  <h4 class="text-sm sm:text-base font-bold text-white">Systematic Disassembly &amp; Foam Padding</h4>
+                  <p class="text-[11px] text-slate-300">Trained carpenters for safe dismantling of beds, modular furniture, and TV units.</p>
+                </div>
+              </div>
+
+              <!-- PM Slide 3 -->
+              <div class="pm-slide opacity-0 absolute inset-0 w-full h-full transition-opacity duration-700 pointer-events-none" id="pmSlide3">
+                <img src="https://images.unsplash.com/photo-1586191582151-f7614d18ec3b?auto=format&fit=crop&w=800&q=80" alt="Waterproof Sealed Container Loading" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex flex-col justify-end p-5">
+                  <span class="px-2 py-0.5 rounded bg-purple-600 text-white text-[10px] font-extrabold uppercase w-max mb-1">Step 3: Secure Loading</span>
+                  <h4 class="text-sm sm:text-base font-bold text-white">Dedicated Waterproof Covered Trucks</h4>
+                  <p class="text-[11px] text-slate-300">Clean, dry closed-body container trucks (8ft to 22ft) with zero rain damage risk.</p>
+                </div>
+              </div>
+
+              <!-- PM Slide 4 -->
+              <div class="pm-slide opacity-0 absolute inset-0 w-full h-full transition-opacity duration-700 pointer-events-none" id="pmSlide4">
+                <img src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=800&q=80" alt="Safe Doorstep Delivery and Unpacking" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex flex-col justify-end p-5">
+                  <span class="px-2 py-0.5 rounded bg-purple-600 text-white text-[10px] font-extrabold uppercase w-max mb-1">Step 4: Doorstep Placement</span>
+                  <h4 class="text-sm sm:text-base font-bold text-white">Unpacking, Placement &amp; Rubbish Removal</h4>
+                  <p class="text-[11px] text-slate-300">Full unpacking, placing goods in designated rooms, and reassembling all furniture.</p>
+                </div>
+              </div>
+
+              <!-- Navigation Controls -->
+              <button onclick="prevPmSlide()" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 hover:bg-purple-600 text-white flex items-center justify-center transition border border-white/20 z-10">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="nextPmSlide()" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 hover:bg-purple-600 text-white flex items-center justify-center transition border border-white/20 z-10">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+
+              <!-- Indicators -->
+              <div class="absolute bottom-3 right-4 flex items-center gap-1.5 z-10">
+                <button onclick="goToPmSlide(0)" class="pm-dot active w-5 h-1.5 rounded-full bg-purple-500 transition-all"></button>
+                <button onclick="goToPmSlide(1)" class="pm-dot w-2 h-1.5 rounded-full bg-white/40 hover:bg-white transition-all"></button>
+                <button onclick="goToPmSlide(2)" class="pm-dot w-2 h-1.5 rounded-full bg-white/40 hover:bg-white transition-all"></button>
+                <button onclick="goToPmSlide(3)" class="pm-dot w-2 h-1.5 rounded-full bg-white/40 hover:bg-white transition-all"></button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 5. CORRIDORS & STATE HUBS SECTION (DYNAMIC & ADMIN MANAGED) -->
+  <!-- REPLACES OLD PAN-INDIA NETWORK WITH HIGHLIGHTED STATES & FAMOUS PLACES -->
+  <!-- ============================================================== -->
+  <section id="routes" class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-3 mb-10">
+        <div class="space-y-1.5 max-w-2xl">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 text-brand-primary text-xs font-bold uppercase tracking-wider">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Regional Express Corridors
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Key State Corridors &amp; Famous Commercial Hubs
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Direct non-stop commercial dispatches from our central Kattedan, Hyderabad Hub to prominent industrial corridors, tech parks, auto clusters, and wholesale ports across India.
           </p>
-          <ul class="text-[11px] text-slate-500 space-y-1 mb-4">
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> 2-driver continuous highway driving</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Guaranteed fast arrival on key lanes</li>
-            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Priority unloading assistance</li>
-          </ul>
-          <a href="#quote" onclick="prefillService('Express Delivery')" class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1">
-            Book Express Cargo <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-          </a>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openAdminModal('routes')" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 shadow transition">
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-brand-orange"></i> Admin: Add / Manage Routes
+          </button>
+        </div>
+      </div>
+
+      <!-- DYNAMIC ROUTES GRID (POPULATED VIA /api/routes & REAL-TIME ADMIN SYNC) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dynamicRoutesGrid">
+        
+        <!-- Corridor 1: Karnataka (Bengaluru) -->
+        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-orange-200 hover:border-brand-orange hover:bg-white transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-orange-100 text-brand-orange text-[10px] font-extrabold uppercase tracking-wide">
+                Karnataka Corridor
+              </span>
+              <span class="text-xs font-bold text-emerald-600 flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Twice Daily
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-900 mb-1">Hyderabad ⇄ Bengaluru</h3>
+            <p class="text-xs text-slate-500 mb-3">570 km · 12-14 Hours Overnight Express</p>
+            
+            <div class="space-y-1.5 mb-4">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Famous Commercial Hubs:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Peenya Industrial Area</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Hosur Hub</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Electronic City</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Whitefield</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Bommasandra</span>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+              <strong>Fleet Available:</strong> 8ft, 14ft, 17ft, 20ft &amp; 22ft (10-12 Ton Passing Certified)
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
+              <strong class="text-sm font-black text-brand-orange">₹14,500</strong>
+            </div>
+            <a href="#quote" onclick="prefillCorridor('Bengaluru, Karnataka')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold transition flex items-center gap-1">
+              Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Corridor 2: Maharashtra (Mumbai & Pune) -->
+        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-sky-200 hover:border-sky-500 hover:bg-white transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-sky-100 text-brand-primary text-[10px] font-extrabold uppercase tracking-wide">
+                Maharashtra Corridor
+              </span>
+              <span class="text-xs font-bold text-sky-600 flex items-center gap-1">
+                ● Daily Direct Service
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-900 mb-1">Hyderabad ⇄ Mumbai &amp; Pune</h3>
+            <p class="text-xs text-slate-500 mb-3">710 km · 16-18 Hours Express Transit</p>
+            
+            <div class="space-y-1.5 mb-4">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Famous Commercial Hubs:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Bhiwandi Logistics Hub</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">JNPT Port</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Chakan Auto Cluster</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Hadapsar</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Vashi APMC</span>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+              <strong>Fleet Available:</strong> 14ft, 17ft, 20ft &amp; 22ft (10-12 Ton Passing Certified)
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
+              <strong class="text-sm font-black text-sky-600">₹18,000</strong>
+            </div>
+            <a href="#quote" onclick="prefillCorridor('Mumbai & Pune, Maharashtra')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-sky-600 text-white text-xs font-bold transition flex items-center gap-1">
+              Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Corridor 3: Tamil Nadu (Chennai & Coimbatore) -->
+        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-emerald-200 hover:border-emerald-500 hover:bg-white transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-extrabold uppercase tracking-wide">
+                Tamil Nadu Corridor
+              </span>
+              <span class="text-xs font-bold text-emerald-600 flex items-center gap-1">
+                ● Daily Express
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-900 mb-1">Hyderabad ⇄ Chennai &amp; Coimbatore</h3>
+            <p class="text-xs text-slate-500 mb-3">630 km · 14-16 Hours Transit</p>
+            
+            <div class="space-y-1.5 mb-4">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Famous Commercial Hubs:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Sriperumbudur Auto Hub</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Ambattur Estate</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Tirupur Textile Hub</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Guindy</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Salem</span>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+              <strong>Fleet Available:</strong> 14ft, 17ft, 20ft &amp; 22ft (10-12 Ton Passing Certified)
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
+              <strong class="text-sm font-black text-emerald-600">₹17,200</strong>
+            </div>
+            <a href="#quote" onclick="prefillCorridor('Chennai & Coimbatore, Tamil Nadu')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white text-xs font-bold transition flex items-center gap-1">
+              Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Corridor 4: Andhra Pradesh (Vijayawada & Vizag) -->
+        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-amber-200 hover:border-amber-500 hover:bg-white transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 text-[10px] font-extrabold uppercase tracking-wide">
+                Andhra Pradesh Corridor
+              </span>
+              <span class="text-xs font-bold text-amber-600 flex items-center gap-1">
+                ● Fast Shuttle Runs
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-900 mb-1">Hyderabad ⇄ Vijayawada &amp; Vizag</h3>
+            <p class="text-xs text-slate-500 mb-3">275 - 620 km · 6-14 Hours Fast Shuttle</p>
+            
+            <div class="space-y-1.5 mb-4">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Famous Commercial Hubs:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Autonagar Vijayawada</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Vizag Port Corridor</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Guntur Market</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Kakinada Port</span>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+              <strong>Fleet Available:</strong> 8ft, 14ft, 17ft, 20ft &amp; 22ft (10-12 Ton Passing Certified)
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
+              <strong class="text-sm font-black text-amber-600">₹8,500</strong>
+            </div>
+            <a href="#quote" onclick="prefillCorridor('Vijayawada & Vizag, Andhra Pradesh')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-xs font-bold transition flex items-center gap-1">
+              Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Corridor 5: Gujarat (Ahmedabad & Surat) -->
+        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-purple-200 hover:border-purple-500 hover:bg-white transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 text-[10px] font-extrabold uppercase tracking-wide">
+                Gujarat Corridor
+              </span>
+              <span class="text-xs font-bold text-purple-600 flex items-center gap-1">
+                ● 4 Runs / Week
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-900 mb-1">Hyderabad ⇄ Ahmedabad &amp; Surat</h3>
+            <p class="text-xs text-slate-500 mb-3">1,190 km · 26-30 Hours Long-Haul</p>
+            
+            <div class="space-y-1.5 mb-4">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Famous Commercial Hubs:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Sanand Industrial Park</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Sachin GIDC Surat</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Surat Textile Market</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Changodar</span>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+              <strong>Fleet Available:</strong> 17ft, 20ft &amp; 22ft (10-12 Ton Passing Certified)
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
+              <strong class="text-sm font-black text-purple-600">₹29,000</strong>
+            </div>
+            <a href="#quote" onclick="prefillCorridor('Ahmedabad & Surat, Gujarat')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-purple-600 text-white text-xs font-bold transition flex items-center gap-1">
+              Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Corridor 6: Delhi NCR (New Delhi, Gurugram, Okhla) -->
+        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-rose-200 hover:border-rose-500 hover:bg-white transition group shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 text-[10px] font-extrabold uppercase tracking-wide">
+                Delhi NCR Corridor
+              </span>
+              <span class="text-xs font-bold text-rose-600 flex items-center gap-1">
+                ● Express Long-Haul
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-900 mb-1">Hyderabad ⇄ Delhi NCR</h3>
+            <p class="text-xs text-slate-500 mb-3">1,580 km · 36-40 Hours National Highway</p>
+            
+            <div class="space-y-1.5 mb-4">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Famous Commercial Hubs:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Okhla Industrial Area</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Manesar Auto Hub</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Gurugram Cyber Corridor</span>
+                <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">Faridabad</span>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+              <strong>Fleet Available:</strong> 20ft &amp; 22ft (Certified 10-12 Ton Passing Heavy Carrier)
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
+              <strong class="text-sm font-black text-rose-600">₹38,000</strong>
+            </div>
+            <a href="#quote" onclick="prefillCorridor('Delhi NCR (New Delhi / Gurugram / Okhla)')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-rose-600 text-white text-xs font-bold transition flex items-center gap-1">
+              Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
         </div>
 
       </div>
@@ -1090,199 +1709,243 @@
     </div>
   </section>
 
-  <!-- OUR FLEET SECTION -->
-  <section id="fleet" class="py-16 bg-white">
+  <!-- ============================================================== -->
+  <!-- 6. FLEET SECTION (STRICTLY 8FT TO 22FT WITH 10-12 TON PASSING, NO TRAILERS) -->
+  <!-- ============================================================== -->
+  <section id="fleet" class="py-16 bg-slate-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-3 mb-10">
         <div>
-          <span class="px-3 py-1 rounded-full bg-orange-100 text-brand-orange text-xs font-bold uppercase tracking-wider">
-            Vehicle Fleet
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-brand-orange text-xs font-bold uppercase tracking-wider">
+            <i data-lucide="truck" class="w-3.5 h-3.5"></i> Commercial Fleet Overview
           </span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1.5">
-            Our Trucks & Transportation Vehicles
+            Our Commercial Trucks (8 Feet to 22 Feet Fleet)
           </h2>
-          <p class="text-slate-600 text-xs sm:text-sm max-w-xl mt-1">
-            All vehicles are GPS-monitored, serviced on rigorous preventive maintenance cycles, and operated by verified commercial drivers.
+          <p class="text-slate-600 text-xs sm:text-sm max-w-2xl mt-1">
+            Certified vehicles with <strong class="text-slate-900">10-12 ton passing capacity</strong>. All trucks equipped with 24/7 GPS tracking, verified commercial drivers, and preventive maintenance logs. <span class="text-brand-orange font-bold">Strictly certified 8ft to 22ft commercial haulers.</span>
           </p>
         </div>
 
-        <!-- Filter tabs -->
+        <!-- Filter tabs: 8ft to 22ft categories -->
         <div class="flex items-center gap-2 flex-wrap">
-          <button onclick="filterFleet('all')" class="fleet-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-navy text-white transition">All Fleet</button>
-          <button onclick="filterFleet('container')" class="fleet-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">Containers</button>
-          <button onclick="filterFleet('open')" class="fleet-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">Heavy Open Trucks</button>
-          <button onclick="filterFleet('trailer')" class="fleet-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">Trailers & ODC</button>
+          <button onclick="filterFleet('all')" class="fleet-tab active px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-navy text-white transition">All Fleet (8ft - 22ft)</button>
+          <button onclick="filterFleet('city')" class="fleet-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">City Pickups (8ft - 14ft)</button>
+          <button onclick="filterFleet('medium')" class="fleet-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">Medium Freight (17ft - 19ft)</button>
+          <button onclick="filterFleet('heavy')" class="fleet-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 transition border border-slate-200">10-12 Ton Heavy (20ft - 22ft)</button>
         </div>
       </div>
 
-      <!-- Fleet Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="fleetGrid">
+      <!-- 6 CERTIFIED FLEET VEHICLES -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="fleetGrid">
         
-        <!-- Truck 1 -->
-        <div class="fleet-item container bg-slate-50 rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div class="flex justify-between items-start pb-3 border-b border-slate-200">
-            <div class="p-2.5 rounded-xl bg-orange-50 text-brand-orange">
-              <i data-lucide="truck" class="w-6 h-6"></i>
+        <!-- Vehicle 1: 8 Feet Mini Truck -->
+        <div class="fleet-card city bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 overflow-hidden bg-slate-900">
+              <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=700&q=80" alt="8 Feet Mini Truck" class="w-full h-full object-cover">
+              <div class="absolute top-2.5 right-2.5 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] text-amber-300 font-extrabold uppercase">
+                1.0 - 1.5 Ton Passing
+              </div>
+              <div class="absolute bottom-2 left-2.5 bg-brand-orange text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                8 Feet Mini Truck
+              </div>
             </div>
-            <span class="bg-orange-100 text-brand-orange text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-              14 - 18 Tons
-            </span>
+            <div class="p-5 space-y-3">
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-sm">8 Feet Mini Truck (Tata Ace / Pickup)</h4>
+                <p class="text-[11px] text-slate-500">Agile city distributor &amp; rapid parcel transport</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                <div><strong>Length:</strong> 8 Feet (8.2 x 4.8 ft)</div>
+                <div><strong>Height:</strong> 5.0 Feet</div>
+                <div><strong>GPS:</strong> 24/7 Live App</div>
+                <div><strong>Fuel:</strong> Diesel / CNG</div>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-relaxed">
+                <strong>Ideal for:</strong> Local Hyderabad deliveries, e-commerce cartons, small furniture, grocery cartons, and express hub parcels.
+              </p>
+            </div>
           </div>
-          <div class="pt-3.5 space-y-2.5">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">32ft MXL Container Truck</h4>
-              <p class="text-[11px] text-slate-500">Multi-Axle Closed Body (Volvo / BharatBenz)</p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200">
-              <div><strong>Length:</strong> 32 Feet</div>
-              <div><strong>Volume:</strong> 1,980 Cu.Ft</div>
-              <div><strong>GPS:</strong> Real-Time Live</div>
-              <div><strong>Permit:</strong> All-India National</div>
-            </div>
-            <p class="text-[11px] text-slate-500">Ideal for: Consumer Electronics, FMCG, Pharmaceuticals, Textile cartons, Retail merchandise.</p>
-            <a href="#quote" onclick="selectFleetVehicle('32ft MXL Container Truck')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
-              Book This Truck
+          <div class="p-5 pt-0">
+            <a href="#quote" onclick="selectFleetVehicle('8ft Mini Truck (1.0 - 1.5 Ton Passing)')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
+              Book 8ft Mini Truck
             </a>
           </div>
         </div>
 
-        <!-- Truck 2 -->
-        <div class="fleet-item container bg-slate-50 rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div class="flex justify-between items-start pb-3 border-b border-slate-200">
-            <div class="p-2.5 rounded-xl bg-sky-50 text-brand-primary">
-              <i data-lucide="package" class="w-6 h-6"></i>
+        <!-- Vehicle 2: 14 Feet Commercial Vehicle -->
+        <div class="fleet-card city bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 overflow-hidden bg-slate-900">
+              <img src="https://images.unsplash.com/photo-1586191582151-f7614d18ec3b?auto=format&fit=crop&w=700&q=80" alt="14 Feet Commercial Truck" class="w-full h-full object-cover">
+              <div class="absolute top-2.5 right-2.5 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] text-amber-300 font-extrabold uppercase">
+                3.5 - 4.0 Ton Passing
+              </div>
+              <div class="absolute bottom-2 left-2.5 bg-sky-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                14 Feet Commercial
+              </div>
             </div>
-            <span class="bg-sky-100 text-brand-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-              7 - 9 Tons
-            </span>
+            <div class="p-5 space-y-3">
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-sm">14 Feet Commercial Vehicle (Eicher Pro)</h4>
+                <p class="text-[11px] text-slate-500">Reliable inter-district &amp; regional freight mover</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                <div><strong>Length:</strong> 14 Feet (14 x 6.5 ft)</div>
+                <div><strong>Height:</strong> 6.5 Feet Deck</div>
+                <div><strong>GPS:</strong> Integrated Live</div>
+                <div><strong>Body:</strong> Covered / High-Side</div>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-relaxed">
+                <strong>Ideal for:</strong> 1BHK/2BHK house shifting, FMCG wholesale cartons, hardware supplies, and retail stock movements.
+              </p>
+            </div>
           </div>
-          <div class="pt-3.5 space-y-2.5">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">20ft Closed Container</h4>
-              <p class="text-[11px] text-slate-500">Single Axle Heavy Commercial (Tata / Eicher)</p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200">
-              <div><strong>Length:</strong> 20 Feet</div>
-              <div><strong>Volume:</strong> 1,150 Cu.Ft</div>
-              <div><strong>GPS:</strong> Fastag & Sensor</div>
-              <div><strong>Permit:</strong> Interstate Express</div>
-            </div>
-            <p class="text-[11px] text-slate-500">Ideal for: Medium batches, urgent factory delivery, automotive spares, white goods.</p>
-            <a href="#quote" onclick="selectFleetVehicle('20ft Closed Container')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
-              Book This Truck
+          <div class="p-5 pt-0">
+            <a href="#quote" onclick="selectFleetVehicle('14ft Commercial Vehicle (3.5 - 4 Ton Passing)')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
+              Book 14ft Truck
             </a>
           </div>
         </div>
 
-        <!-- Truck 3 -->
-        <div class="fleet-item open bg-slate-50 rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div class="flex justify-between items-start pb-3 border-b border-slate-200">
-            <div class="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
-              <i data-lucide="container" class="w-6 h-6"></i>
+        <!-- Vehicle 3: 17 Feet Medium Freight Truck -->
+        <div class="fleet-card medium bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 overflow-hidden bg-slate-900">
+              <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=700&q=80" alt="17 Feet Medium Freight Truck" class="w-full h-full object-cover">
+              <div class="absolute top-2.5 right-2.5 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] text-amber-300 font-extrabold uppercase">
+                5.0 - 7.0 Ton Passing
+              </div>
+              <div class="absolute bottom-2 left-2.5 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                17 Feet Medium Freight
+              </div>
             </div>
-            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-              16 - 21 Tons
-            </span>
+            <div class="p-5 space-y-3">
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-sm">17 Feet Medium Freight Truck (Tata 1109)</h4>
+                <p class="text-[11px] text-slate-500">Highway certified closed-body container truck</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                <div><strong>Length:</strong> 17 Feet (17 x 7.0 ft)</div>
+                <div><strong>Height:</strong> 7.0 Feet Box</div>
+                <div><strong>GPS:</strong> Satellite Monitored</div>
+                <div><strong>Permit:</strong> National Permit</div>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-relaxed">
+                <strong>Ideal for:</strong> Industrial machinery parts, consumer electronics, pharmaceutical cartons, and direct factory consignments.
+              </p>
+            </div>
           </div>
-          <div class="pt-3.5 space-y-2.5">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">10 / 12-Wheeler Open Truck</h4>
-              <p class="text-[11px] text-slate-500">Heavy Duty Flat & High-Deck Open Body</p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200">
-              <div><strong>Length:</strong> 24-28 Feet</div>
-              <div><strong>Deck:</strong> High Tarpaulin Proof</div>
-              <div><strong>GPS:</strong> Integrated Tracker</div>
-              <div><strong>Permit:</strong> Pan-India Heavy</div>
-            </div>
-            <p class="text-[11px] text-slate-500">Ideal for: Steel rods, cement bags, agricultural produce, pipes, building materials.</p>
-            <a href="#quote" onclick="selectFleetVehicle('10/12-Wheeler Open Truck')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
-              Book This Truck
+          <div class="p-5 pt-0">
+            <a href="#quote" onclick="selectFleetVehicle('17ft Medium Freight (5 - 7 Ton Passing)')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
+              Book 17ft Truck
             </a>
           </div>
         </div>
 
-        <!-- Truck 4 -->
-        <div class="fleet-item trailer bg-slate-50 rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div class="flex justify-between items-start pb-3 border-b border-slate-200">
-            <div class="p-2.5 rounded-xl bg-purple-50 text-purple-600">
-              <i data-lucide="hammer" class="w-6 h-6"></i>
+        <!-- Vehicle 4: 19 Feet Heavy Cargo Carrier -->
+        <div class="fleet-card medium bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 overflow-hidden bg-slate-900">
+              <img src="https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=700&q=80" alt="19 Feet Heavy Cargo Truck" class="w-full h-full object-cover">
+              <div class="absolute top-2.5 right-2.5 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] text-amber-300 font-extrabold uppercase">
+                8.0 - 9.0 Ton Passing
+              </div>
+              <div class="absolute bottom-2 left-2.5 bg-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                19 Feet Heavy Carrier
+              </div>
             </div>
-            <span class="bg-purple-100 text-purple-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-              25 - 40 Tons
-            </span>
+            <div class="p-5 space-y-3">
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-sm">19 Feet Heavy Cargo Carrier (Ashok Leyland)</h4>
+                <p class="text-[11px] text-slate-500">High-volume heavy cargo highway carrier</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                <div><strong>Length:</strong> 19 Feet (19 x 7.5 ft)</div>
+                <div><strong>Height:</strong> 7.5 Feet</div>
+                <div><strong>GPS:</strong> Geo-Fenced Tracker</div>
+                <div><strong>Body:</strong> Weatherproof Box</div>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-relaxed">
+                <strong>Ideal for:</strong> Auto ancillary components, textile rolls, heavy packaging boxes, and inter-state corridor transport.
+              </p>
+            </div>
           </div>
-          <div class="pt-3.5 space-y-2.5">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">Multi-Axle Semi-Trailer</h4>
-              <p class="text-[11px] text-slate-500">Low-Bed / Flatbed High-Capacity Hauler</p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200">
-              <div><strong>Length:</strong> 40-48 Feet</div>
-              <div><strong>Bed:</strong> Heavy Axle Steel</div>
-              <div><strong>GPS:</strong> Dual Geo-Fencing</div>
-              <div><strong>Permit:</strong> Heavy Corridor ODC</div>
-            </div>
-            <p class="text-[11px] text-slate-500">Ideal for: Large industrial machinery, transformers, infrastructure girders, earthmovers.</p>
-            <a href="#quote" onclick="selectFleetVehicle('Multi-Axle Semi-Trailer (25-40 Ton)')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
-              Book This Truck
+          <div class="p-5 pt-0">
+            <a href="#quote" onclick="selectFleetVehicle('19ft Heavy Cargo Carrier (8 - 9 Ton Passing)')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
+              Book 19ft Truck
             </a>
           </div>
         </div>
 
-        <!-- Truck 5 -->
-        <div class="fleet-item container bg-slate-50 rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div class="flex justify-between items-start pb-3 border-b border-slate-200">
-            <div class="p-2.5 rounded-xl bg-blue-50 text-blue-600">
-              <i data-lucide="layers" class="w-6 h-6"></i>
+        <!-- Vehicle 5: 20 Feet Multi-Axle Freight Truck -->
+        <div class="fleet-card heavy bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 overflow-hidden bg-slate-900">
+              <img src="/assets/truck_hero_hd.jpg" alt="20 Feet Multi-Axle Freight Truck" class="w-full h-full object-cover">
+              <div class="absolute top-2.5 right-2.5 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] text-amber-300 font-extrabold uppercase">
+                10.0 - 11.0 Ton Passing
+              </div>
+              <div class="absolute bottom-2 left-2.5 bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                20 Feet 10-11 Ton
+              </div>
             </div>
-            <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-              7 - 9 Tons
-            </span>
+            <div class="p-5 space-y-3">
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-sm">20 Feet Multi-Axle Freight Truck</h4>
+                <p class="text-[11px] text-slate-500">Certified heavy commercial freight mover</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                <div><strong>Length:</strong> 20 Feet (20 x 7.8 ft)</div>
+                <div><strong>Height:</strong> 8.0 Feet High-Deck</div>
+                <div><strong>GPS:</strong> Real-Time Sensor</div>
+                <div><strong>Passing:</strong> 10-11 Ton Certified</div>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-relaxed">
+                <strong>Ideal for:</strong> Large warehouse pallet shipments, steel fittings, heavy industrial chemicals, and cross-border commercial loads.
+              </p>
+            </div>
           </div>
-          <div class="pt-3.5 space-y-2.5">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">32ft SXL Container Truck</h4>
-              <p class="text-[11px] text-slate-500">Single Axle High-Cube Box Container</p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200">
-              <div><strong>Length:</strong> 32 Feet</div>
-              <div><strong>Volume:</strong> High-Volume Box</div>
-              <div><strong>GPS:</strong> Real-Time Sensor</div>
-              <div><strong>Permit:</strong> National Highway</div>
-            </div>
-            <p class="text-[11px] text-slate-500">Ideal for: E-commerce packages, snacks, packaging materials, foam, garments.</p>
-            <a href="#quote" onclick="selectFleetVehicle('32ft SXL Container Truck')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
-              Book This Truck
+          <div class="p-5 pt-0">
+            <a href="#quote" onclick="selectFleetVehicle('20ft Multi-Axle Truck (10 - 11 Ton Passing)')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
+              Book 20ft Truck
             </a>
           </div>
         </div>
 
-        <!-- Truck 6 -->
-        <div class="fleet-item open bg-slate-50 rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div class="flex justify-between items-start pb-3 border-b border-slate-200">
-            <div class="p-2.5 rounded-xl bg-amber-50 text-amber-600">
-              <i data-lucide="navigation-2" class="w-6 h-6"></i>
+        <!-- Vehicle 6: 22 Feet Heavy Carrier (10-12 Ton Passing Certified) -->
+        <div class="fleet-card heavy bg-white rounded-2xl overflow-hidden border-2 border-orange-500/40 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 overflow-hidden bg-slate-900">
+              <img src="/assets/truck_preloader.png" alt="22 Feet Heavy Carrier 10-12 Ton Passing Certified" class="w-full h-full object-cover">
+              <div class="absolute top-2.5 right-2.5 bg-slate-950/90 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] text-emerald-400 font-extrabold uppercase border border-emerald-500/40">
+                10.0 - 12.0 Ton Passing Certified
+              </div>
+              <div class="absolute bottom-2 left-2.5 bg-brand-orange text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">
+                22 Feet Heavy Carrier
+              </div>
             </div>
-            <span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-              2.5 - 5 Tons
-            </span>
+            <div class="p-5 space-y-3">
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-sm">22 Feet Heavy Carrier (10-12 Ton Passing Certified)</h4>
+                <p class="text-[11px] text-slate-500">Maximum capacity long-haul heavy highway hauler</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-orange-50/50 p-2.5 rounded-xl border border-orange-200">
+                <div><strong>Length:</strong> 22 Feet (22 x 8.0 ft)</div>
+                <div><strong>Height:</strong> 8.5 Feet High-Cube</div>
+                <div><strong>Passing:</strong> 10-12 Ton RTO Cert</div>
+                <div><strong>GPS:</strong> Real-Time Satellite</div>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-relaxed">
+                <strong>Ideal for:</strong> Heavy manufacturing freight, national highway corridors (Hyderabad-Bangalore, Mumbai, Delhi, Gujarat), and bulk industrial dispatches.
+              </p>
+            </div>
           </div>
-          <div class="pt-3.5 space-y-2.5">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">City LCV / Tata 407 & 1109</h4>
-              <p class="text-[11px] text-slate-500">Intra-City & Last-Mile Delivery Vehicle</p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200">
-              <div><strong>Length:</strong> 14-17 Feet</div>
-              <div><strong>Maneuver:</strong> Urban Friendly</div>
-              <div><strong>GPS:</strong> App-Linked Tracking</div>
-              <div><strong>Permit:</strong> Regional & City Gates</div>
-            </div>
-            <p class="text-[11px] text-slate-500">Ideal for: Factory-to-warehouse transfers, local retail distribution, urgent hub pickups.</p>
-            <a href="#quote" onclick="selectFleetVehicle('City LCV (2.5-5 Ton)')" class="block text-center py-2 bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold rounded-xl transition">
-              Book This Truck
+          <div class="p-5 pt-0">
+            <a href="#quote" onclick="selectFleetVehicle('22ft Heavy Carrier (10 - 12 Ton Passing Certified)')" class="block text-center py-2 bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-black rounded-xl transition shadow">
+              Book 22ft Heavy Carrier
             </a>
           </div>
         </div>
@@ -1291,7 +1954,6 @@
 
     </div>
   </section>
-
   <!-- LIVE SHIPMENT TRACKING TOOL -->
   <section id="tracking" class="py-16 bg-slate-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1437,13 +2099,14 @@
 
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1">Vehicle Required</label>
-                  <select id="qVehicleType" class="w-full px-2.5 py-2 text-xs font-medium border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-orange focus:outline-none">
-                    <option value="32ft MXL Container (14 Ton)">32ft MXL Container (14 Ton)</option>
-                    <option value="20ft Closed Container (7 Ton)">20ft Closed Container (7 Ton)</option>
-                    <option value="10/12-Wheeler Open Truck">10/12-Wheeler Open Truck</option>
-                    <option value="Multi-Axle Trailer (25-40 Ton)">Multi-Axle Trailer (25-40 Ton)</option>
-                    <option value="City LCV (2.5-5 Ton)">City LCV (2.5-5 Ton)</option>
-                    <option value="Open Advice / Best Suggestion">Open Advice / Best Suggestion</option>
+                  <select id="qVehicleType" class="w-full px-2.5 py-2 text-xs font-semibold border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:outline-none bg-white">
+                    <option value="8ft Mini Truck (1.0 - 1.5 Ton Passing)">8 Feet Mini Truck (1.0 - 1.5 Ton Passing)</option>
+                    <option value="14ft Commercial Vehicle (3.5 - 4 Ton Passing)">14 Feet Commercial Vehicle (3.5 - 4 Ton Passing)</option>
+                    <option value="17ft Medium Freight (5 - 7 Ton Passing)" selected>17 Feet Medium Freight (5 - 7 Ton Passing)</option>
+                    <option value="19ft Heavy Cargo Carrier (8 - 9 Ton Passing)">19 Feet Heavy Cargo Carrier (8 - 9 Ton Passing)</option>
+                    <option value="20ft Multi-Axle Truck (10 - 11 Ton Passing)">20 Feet Multi-Axle Truck (10 - 11 Ton Passing)</option>
+                    <option value="22ft Heavy Carrier (10 - 12 Ton Passing Certified)">22 Feet Heavy Carrier (10 - 12 Ton Passing Certified)</option>
+                    <option value="Open Advice / Best Suggestion (8ft - 22ft)">Open Advice / Best Fleet Suggestion (8ft - 22ft)</option>
                   </select>
                 </div>
               </div>
@@ -1663,7 +2326,7 @@
             <li><a href="#about" class="hover:text-brand-orange transition">About Us</a></li>
             <li><a href="#services" class="hover:text-brand-orange transition">Our Services</a></li>
             <li><a href="#fleet" class="hover:text-brand-orange transition">Our Fleet</a></li>
-            <li><a href="#network" class="hover:text-brand-orange transition">Network & Routes</a></li>
+            <li><a href="#routes" class="hover:text-brand-orange transition">Network & Routes</a></li>
             <li><a href="#tracking" class="hover:text-brand-orange transition">Shipment Tracking</a></li>
           </ul>
         </div>
@@ -1725,19 +2388,24 @@
     </div>
   </div>
 
-  <!-- ADMIN DASHBOARD MODAL -->
+  <!-- ============================================================== -->
+  <!-- 7. ADMIN DASHBOARD MODAL (DYNAMIC SERVICES, ROUTES & QUOTES) -->
+  <!-- ============================================================== -->
   <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+    <div class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col">
       
       <!-- Modal Header -->
       <div class="bg-brand-navy p-4 text-white flex justify-between items-center border-b border-slate-800">
         <div class="flex items-center gap-2.5">
-          <span class="p-1.5 rounded-lg bg-orange-500 text-white">
+          <span class="p-2 rounded-xl bg-orange-500 text-white shadow-md">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
           </span>
           <div>
-            <h3 class="text-sm font-bold">Sachin Cargo Carriers · Admin Operations</h3>
-            <p class="text-[11px] text-slate-300">Kattedan Hub, Hyderabad · Dispatch Management</p>
+            <h3 class="text-sm font-bold flex items-center gap-2">
+              <span>Sachin Cargo Carriers · Admin Operations</span>
+              <span class="text-[10px] font-mono font-bold text-amber-300 bg-white/10 px-2 py-0.5 rounded-full">GSTN: 36KXHPS3438G1ZY</span>
+            </h3>
+            <p class="text-[11px] text-slate-300">Central Hub: Kattedan, Hyderabad (500005) · Real-Time Operations Manager</p>
           </div>
         </div>
         <button onclick="closeAdminModal()" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
@@ -1745,84 +2413,228 @@
         </button>
       </div>
 
-      <!-- Modal Body -->
+      <!-- Tab Navigation -->
+      <div class="bg-slate-100 px-5 pt-3 border-b border-slate-200 flex gap-2">
+        <button id="admTabQuotesBtn" onclick="switchAdminTab('quotes')" class="adm-tab active px-4 py-2 rounded-t-xl text-xs font-bold bg-white text-slate-900 border-t-2 border-brand-orange shadow-sm flex items-center gap-1.5">
+          <i data-lucide="inbox" class="w-3.5 h-3.5 text-brand-orange"></i> Quotes &amp; Enquiries (<span id="admTabCountQuotes">0</span>)
+        </button>
+        <button id="admTabServicesBtn" onclick="switchAdminTab('services')" class="adm-tab px-4 py-2 rounded-t-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+          <i data-lucide="box" class="w-3.5 h-3.5 text-sky-500"></i> Manage Services (<span id="admTabCountServices">5</span>)
+        </button>
+        <button id="admTabRoutesBtn" onclick="switchAdminTab('routes')" class="adm-tab px-4 py-2 rounded-t-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+          <i data-lucide="navigation" class="w-3.5 h-3.5 text-emerald-500"></i> Manage Routes &amp; State Hubs (<span id="admTabCountRoutes">6</span>)
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
       <div class="p-5 overflow-y-auto space-y-5 flex-1">
         
-        <!-- Summary Stats -->
-        <div class="grid grid-cols-3 gap-3">
-          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <p class="text-[11px] text-slate-500 font-semibold">Total Enquiries</p>
-            <p id="admTotalQuotes" class="text-xl font-black text-slate-900 mt-0.5">0</p>
+        <!-- PANE 1: QUOTES & INQUIRIES -->
+        <div id="admPaneQuotes" class="space-y-4">
+          <!-- Summary Stats -->
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+              <p class="text-[11px] text-slate-500 font-semibold">Total Enquiries</p>
+              <p id="admTotalQuotes" class="text-xl font-black text-slate-900 mt-0.5">0</p>
+            </div>
+            <div class="bg-orange-50 p-3.5 rounded-xl border border-orange-200">
+              <p class="text-[11px] text-orange-700 font-semibold">New Pending Quotes</p>
+              <p id="admNewQuotes" class="text-xl font-black text-brand-orange mt-0.5">0</p>
+            </div>
+            <div class="bg-sky-50 p-3.5 rounded-xl border border-sky-200">
+              <p class="text-[11px] text-sky-700 font-semibold">In Transit</p>
+              <p id="admInTransit" class="text-xl font-black text-brand-primary mt-0.5">0</p>
+            </div>
           </div>
-          <div class="bg-orange-50 p-3.5 rounded-xl border border-orange-200">
-            <p class="text-[11px] text-orange-700 font-semibold">New Pending Quotes</p>
-            <p id="admNewQuotes" class="text-xl font-black text-brand-orange mt-0.5">0</p>
+
+          <!-- Filter & Search Bar -->
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-2.5">
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <input type="text" id="adminSearchInput" onkeyup="filterAdminQuotes()" placeholder="Search by name, phone, city..." class="px-3 py-1.5 text-xs border border-slate-300 rounded-lg w-full sm:w-60 focus:outline-none focus:ring-1 focus:ring-brand-orange">
+              <select id="adminStatusFilter" onchange="filterAdminQuotes()" class="px-2.5 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-orange">
+                <option value="ALL">All Statuses</option>
+                <option value="New">New</option>
+                <option value="Quoted">Quoted</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            <div class="flex gap-2 w-full sm:w-auto justify-end">
+              <button onclick="exportQuotesCSV()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Export CSV
+              </button>
+              <button onclick="fetchAdminData()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center gap-1.5 transition">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
+              </button>
+            </div>
           </div>
-          <div class="bg-sky-50 p-3.5 rounded-xl border border-sky-200">
-            <p class="text-[11px] text-sky-700 font-semibold">In Transit</p>
-            <p id="admInTransit" class="text-xl font-black text-brand-primary mt-0.5">0</p>
+
+          <!-- Quotes Table -->
+          <div class="overflow-x-auto border border-slate-200 rounded-xl">
+            <table class="w-full text-left text-xs text-slate-700">
+              <thead class="bg-slate-100 text-slate-800 uppercase text-[10px] font-bold border-b border-slate-200">
+                <tr>
+                  <th class="p-3">Ref ID</th>
+                  <th class="p-3">Customer &amp; Phone</th>
+                  <th class="p-3">Route</th>
+                  <th class="p-3">Cargo / Vehicle</th>
+                  <th class="p-3">Est. Price</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminQuotesTableBody" class="divide-y divide-slate-100">
+                <!-- Dynamically rendered -->
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <!-- Filter & Search Bar -->
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-2.5">
-          <div class="flex items-center gap-2 w-full sm:w-auto">
-            <input type="text" id="adminSearchInput" onkeyup="filterAdminQuotes()" placeholder="Search by name, phone, city..." class="px-3 py-1.5 text-xs border border-slate-300 rounded-lg w-full sm:w-60 focus:outline-none focus:ring-1 focus:ring-brand-orange">
-            <select id="adminStatusFilter" onchange="filterAdminQuotes()" class="px-2.5 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-orange">
-              <option value="ALL">All Statuses</option>
-              <option value="New">New</option>
-              <option value="Quoted">Quoted</option>
-              <option value="In Transit">In Transit</option>
-              <option value="Completed">Completed</option>
-            </select>
+        <!-- PANE 2: MANAGE SERVICES -->
+        <div id="admPaneServices" class="hidden space-y-5">
+          <!-- Add Service Form -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+            <div class="flex justify-between items-center">
+              <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-4 h-4 text-brand-orange"></i> Add New Service to Customer Portal
+              </h4>
+              <span class="text-[10px] text-slate-500">Live syncs to customer homepage instantly</span>
+            </div>
+            
+            <form id="admNewServiceForm" onsubmit="submitNewService(event)" class="space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Service Title *</label>
+                  <input type="text" id="srvTitle" placeholder="e.g. Hyderabad to Bangalore Express" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange" required>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Category</label>
+                  <input type="text" id="srvCategory" placeholder="e.g. Express Corridor / Relocation" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Badge Tag</label>
+                  <input type="text" id="srvTag" placeholder="e.g. Daily 2-Way Dispatch" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="sm:col-span-2">
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Detailed Description *</label>
+                  <input type="text" id="srvDescription" placeholder="Explain the service capabilities, coverage and fleet specs" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange" required>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Starting Price</label>
+                  <input type="text" id="srvPrice" placeholder="e.g. ₹14,500 or ₹450" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Key Highlights (One per line)</label>
+                <textarea id="srvFeatures" rows="2" placeholder="Guaranteed 12-14 hr transit&#10;Daily 2-Way runs&#10;8ft to 22ft fleet" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange"></textarea>
+              </div>
+
+              <div class="flex justify-end gap-2">
+                <button type="submit" id="admSaveServiceBtn" class="px-4 py-2 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-xs flex items-center gap-1.5 shadow transition">
+                  <i data-lucide="save" class="w-3.5 h-3.5"></i> Publish Service to Website
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="flex gap-2 w-full sm:w-auto justify-end">
-            <button onclick="exportQuotesCSV()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition">
-              <i data-lucide="download" class="w-3.5 h-3.5"></i> Export CSV
-            </button>
-            <button onclick="fetchAdminData()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center gap-1.5 transition">
-              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
-            </button>
+
+          <!-- Existing Services List with Delete action -->
+          <div class="space-y-2">
+            <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Active Services on Customer Portal</h5>
+            <div id="admServicesList" class="space-y-2.5">
+              <!-- Dynamically populated via fetchServices() -->
+            </div>
           </div>
         </div>
 
-        <!-- Quotes Table -->
-        <div class="overflow-x-auto border border-slate-200 rounded-xl">
-          <table class="w-full text-left text-xs text-slate-700">
-            <thead class="bg-slate-100 text-slate-800 uppercase text-[10px] font-bold border-b border-slate-200">
-              <tr>
-                <th class="p-3">Ref ID</th>
-                <th class="p-3">Customer & Phone</th>
-                <th class="p-3">Route</th>
-                <th class="p-3">Cargo / Tonnage</th>
-                <th class="p-3">Est. Price</th>
-                <th class="p-3">Status</th>
-                <th class="p-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="adminQuotesTableBody" class="divide-y divide-slate-100">
-              <!-- Dynamically rendered -->
-            </tbody>
-          </table>
+        <!-- PANE 3: MANAGE ROUTES & STATE HUBS -->
+        <div id="admPaneRoutes" class="hidden space-y-5">
+          <!-- Add Route Form -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+            <div class="flex justify-between items-center">
+              <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-4 h-4 text-emerald-600"></i> Add New State Hub / Corridor to Customer Portal
+              </h4>
+              <span class="text-[10px] text-slate-500">Live syncs to Corridors section instantly</span>
+            </div>
+
+            <form id="admNewRouteForm" onsubmit="submitNewRoute(event)" class="space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Destination City *</label>
+                  <input type="text" id="rtDest" placeholder="e.g. Pune, Maharashtra" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600" required>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">State Corridor *</label>
+                  <input type="text" id="rtState" placeholder="e.g. Maharashtra / Karnataka" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600" required>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Starting Rate</label>
+                  <input type="text" id="rtPrice" placeholder="e.g. ₹16,500" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Famous Cities / Commercial Places (Comma-separated) *</label>
+                <input type="text" id="rtPlaces" placeholder="e.g. Chakan Auto Cluster, Bhosari MIDC, Hinjawadi Tech Park, Hadapsar" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600" required>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Distance (km)</label>
+                  <input type="text" id="rtDistance" placeholder="e.g. 560 km" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Transit Time</label>
+                  <input type="text" id="rtTransit" placeholder="e.g. 12-14 Hours" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Frequency</label>
+                  <input type="text" id="rtFrequency" placeholder="e.g. Daily Direct Express" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600">
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-2">
+                <button type="submit" id="admSaveRouteBtn" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow transition">
+                  <i data-lucide="save" class="w-3.5 h-3.5"></i> Publish Corridor to Website
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Existing Routes List with Delete action -->
+          <div class="space-y-2">
+            <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Active Corridors &amp; State Hubs</h5>
+            <div id="admRoutesList" class="space-y-2.5">
+              <!-- Dynamically populated via fetchRoutes() -->
+            </div>
+          </div>
         </div>
 
       </div>
 
       <!-- Modal Footer -->
       <div class="p-3.5 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs text-slate-500">
-        <span>Sachin Cargo Carriers Management System v1.0</span>
-        <button onclick="closeAdminModal()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 text-white font-bold hover:bg-slate-900 transition text-xs">
-          Close Portal
+        <span>Sachin Cargo Carriers Portal Management System · Kattedan, Hyderabad</span>
+        <button onclick="closeAdminModal()" class="px-4 py-1.5 rounded-lg bg-slate-800 text-white font-bold hover:bg-slate-900 transition text-xs">
+          Close Admin Panel
         </button>
       </div>
 
     </div>
   </div>
-
   <!-- CLIENT-SIDE JAVASCRIPT LOGIC -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
+      initHeroCarousel();
+      initPackersMoversSlider();
+      fetchServices();
+      fetchRoutes();
+      fetchAdminData();
     });
 
     function toggleMobileMenu() {
@@ -1837,41 +2649,171 @@
 
     function prefillService(serviceName) {
       const notes = document.getElementById('qNotes');
-      notes.value = `Enquiry for: ${serviceName}`;
-      document.getElementById('quote').scrollIntoView({ behavior: 'smooth' });
+      if (notes) notes.value = `Enquiry for: ${serviceName}`;
+      const quoteSec = document.getElementById('quote');
+      if (quoteSec) quoteSec.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function prefillCorridor(destination) {
+      const dropInput = document.getElementById('qDropCity');
+      if (dropInput) dropInput.value = destination;
+      const notes = document.getElementById('qNotes');
+      if (notes) notes.value = `Corridor Booking for: ${destination}`;
+      const quoteSec = document.getElementById('quote');
+      if (quoteSec) quoteSec.scrollIntoView({ behavior: 'smooth' });
     }
 
     function selectFleetVehicle(vehicleName) {
       const select = document.getElementById('qVehicleType');
-      for (let i = 0; i < select.options.length; i++) {
-        if (select.options[i].value.includes(vehicleName) || vehicleName.includes(select.options[i].text)) {
-          select.selectedIndex = i;
-          break;
+      if (select) {
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value.includes(vehicleName) || vehicleName.includes(select.options[i].value)) {
+            select.selectedIndex = i;
+            break;
+          }
         }
       }
-      document.getElementById('quote').scrollIntoView({ behavior: 'smooth' });
+      const quoteSec = document.getElementById('quote');
+      if (quoteSec) quoteSec.scrollIntoView({ behavior: 'smooth' });
     }
 
     function filterFleet(category) {
-      const items = document.querySelectorAll('.fleet-item');
+      const cards = document.querySelectorAll('.fleet-card');
       const tabs = document.querySelectorAll('.fleet-tab');
       
       tabs.forEach(t => {
         t.classList.remove('bg-brand-navy', 'text-white');
         t.classList.add('bg-white', 'text-slate-700');
       });
-      event.target.classList.add('bg-brand-navy', 'text-white');
-      event.target.classList.remove('bg-white', 'text-slate-700');
+      if (event && event.target) {
+        event.target.classList.add('bg-brand-navy', 'text-white');
+        event.target.classList.remove('bg-white', 'text-slate-700');
+      }
 
-      items.forEach(item => {
-        if (category === 'all' || item.classList.contains(category)) {
-          item.style.display = 'block';
+      cards.forEach(card => {
+        if (category === 'all' || card.classList.contains(category)) {
+          card.style.display = 'flex';
         } else {
-          item.style.display = 'none';
+          card.style.display = 'none';
         }
       });
     }
 
+    // ==============================================================
+    // 1. AUTO-SLIDING HERO SHOWCASE CAROUSEL (4.5s Interval)
+    // ==============================================================
+    let currentHeroSlide = 0;
+    const heroSlides = ['slide1', 'slide2', 'slide3', 'slide4'];
+    let heroTimer = null;
+
+    function initHeroCarousel() {
+      startHeroAutoPlay();
+    }
+
+    function startHeroAutoPlay() {
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = setInterval(() => {
+        nextSlide();
+      }, 4500);
+    }
+
+    function showSlide(idx) {
+      currentHeroSlide = (idx + heroSlides.length) % heroSlides.length;
+      heroSlides.forEach((sId, index) => {
+        const el = document.getElementById(sId);
+        if (el) {
+          if (index === currentHeroSlide) {
+            el.classList.add('active');
+            el.style.display = 'block';
+          } else {
+            el.classList.remove('active');
+            el.style.display = 'none';
+          }
+        }
+      });
+
+      const dots = document.querySelectorAll('.slide-dot');
+      dots.forEach((dot, index) => {
+        if (index === currentHeroSlide) {
+          dot.classList.add('w-6', 'bg-brand-orange');
+          dot.classList.remove('w-2', 'bg-white/40');
+        } else {
+          dot.classList.remove('w-6', 'bg-brand-orange');
+          dot.classList.add('w-2', 'bg-white/40');
+        }
+      });
+    }
+
+    function nextSlide() {
+      showSlide(currentHeroSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentHeroSlide - 1);
+    }
+
+    function goToSlide(idx) {
+      showSlide(idx);
+      startHeroAutoPlay();
+    }
+
+    // ==============================================================
+    // 2. AUTO-SLIDING PACKERS & MOVERS GALLERY (3.5s Interval)
+    // ==============================================================
+    let currentPmSlide = 0;
+    const pmSlides = ['pmSlide1', 'pmSlide2', 'pmSlide3', 'pmSlide4'];
+    let pmTimer = null;
+
+    function initPackersMoversSlider() {
+      if (pmTimer) clearInterval(pmTimer);
+      pmTimer = setInterval(() => {
+        nextPmSlide();
+      }, 3500);
+    }
+
+    function showPmSlide(idx) {
+      currentPmSlide = (idx + pmSlides.length) % pmSlides.length;
+      pmSlides.forEach((sId, index) => {
+        const el = document.getElementById(sId);
+        if (el) {
+          if (index === currentPmSlide) {
+            el.classList.remove('opacity-0', 'pointer-events-none');
+            el.classList.add('opacity-100');
+          } else {
+            el.classList.add('opacity-0', 'pointer-events-none');
+            el.classList.remove('opacity-100');
+          }
+        }
+      });
+
+      const dots = document.querySelectorAll('.pm-dot');
+      dots.forEach((dot, index) => {
+        if (index === currentPmSlide) {
+          dot.classList.add('w-5', 'bg-purple-500');
+          dot.classList.remove('w-2', 'bg-white/40');
+        } else {
+          dot.classList.remove('w-5', 'bg-purple-500');
+          dot.classList.add('w-2', 'bg-white/40');
+        }
+      });
+    }
+
+    function nextPmSlide() {
+      showPmSlide(currentPmSlide + 1);
+    }
+
+    function prevPmSlide() {
+      showPmSlide(currentPmSlide - 1);
+    }
+
+    function goToPmSlide(idx) {
+      showPmSlide(idx);
+      initPackersMoversSlider();
+    }
+
+    // ==============================================================
+    // 3. RATE & COST ESTIMATE CALCULATOR (PLACED AT TOP)
+    // ==============================================================
     async function handleHeroEstimate(e) {
       e.preventDefault();
       const pickup = document.getElementById('quickPickup').value;
@@ -1887,13 +2829,13 @@
         });
         const data = await res.json();
         
+        document.getElementById('resRouteName').textContent = `${pickup} ➔ ${drop.toUpperCase()}`;
         document.getElementById('resDistance').textContent = `${data.distanceKm} km`;
         document.getElementById('resTransit').textContent = data.transitTime;
         document.getElementById('resPrice').textContent = data.estimatedPriceRange;
 
-        const waMsg = encodeURIComponent(`Hello Sachin Cargo Carriers, I want a quote for transport from ${pickup} to ${drop} (${weight} Tons, ${vehicle}). Estimated: ${data.estimatedPriceRange}`);
+        const waMsg = encodeURIComponent(`Hello Sachin Cargo Carriers, I want a freight quote from ${pickup} to ${drop} (${weight} Tons, ${vehicle}). Estimated tariff: ${data.estimatedPriceRange}`);
         document.getElementById('resWhatsAppBtn').href = `https://wa.me/918867444552?text=${waMsg}`;
-        document.getElementById('resWhatsAppBtn2').href = `https://wa.me/919632369433?text=${waMsg}`;
 
         document.getElementById('quickEstimateResult').classList.remove('hidden');
       } catch (err) {
@@ -1901,6 +2843,499 @@
       }
     }
 
+    function transferEstimateToQuote() {
+      const dropVal = document.getElementById('quickDrop').value;
+      const weightVal = document.getElementById('quickWeight').value;
+      const vehVal = document.getElementById('quickVehicle').value;
+
+      const dropInput = document.getElementById('qDropCity');
+      if (dropInput) dropInput.value = dropVal;
+      const weightInput = document.getElementById('qWeight');
+      if (weightInput) weightInput.value = weightVal;
+      
+      const select = document.getElementById('qVehicleType');
+      if (select) {
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value.includes(vehVal)) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    }
+
+    // ==============================================================
+    // 4. DYNAMIC SERVICES API & RENDERING (CUSTOMER PORTAL)
+    // ==============================================================
+    let allServices = [];
+
+    async function fetchServices() {
+      try {
+        const res = await fetch('/api/services');
+        const services = await res.json();
+        allServices = services;
+        
+        const countSpan = document.getElementById('admTabCountServices');
+        if (countSpan) countSpan.textContent = services.length;
+
+        renderDynamicServices(services);
+        renderAdminServicesList(services);
+      } catch (err) {
+        console.error('Failed to load services:', err);
+      }
+    }
+
+    function renderDynamicServices(services) {
+      const container = document.getElementById('dynamicServicesGrid');
+      if (!container || !services.length) return;
+
+      container.innerHTML = services.map(s => {
+        let borderClass = 'border-orange-500/20 hover:border-brand-orange';
+        let bgIconClass = 'bg-orange-100 text-brand-orange';
+        let btnBg = 'bg-slate-900 hover:bg-brand-orange';
+
+        if (s.category && s.category.toLowerCase().includes('rapid')) {
+          borderClass = 'border-emerald-500/20 hover:border-emerald-500';
+          bgIconClass = 'bg-emerald-100 text-emerald-600';
+          btnBg = 'bg-emerald-600 hover:bg-emerald-700';
+        } else if (s.category && s.category.toLowerCase().includes('relocation')) {
+          borderClass = 'border-purple-500/20 hover:border-purple-500';
+          bgIconClass = 'bg-purple-100 text-purple-600';
+          btnBg = 'bg-purple-600 hover:bg-purple-700';
+        } else if (s.category && s.category.toLowerCase().includes('dedicated')) {
+          borderClass = 'border-sky-500/20 hover:border-sky-500';
+          bgIconClass = 'bg-sky-100 text-sky-600';
+          btnBg = 'bg-sky-600 hover:bg-sky-700';
+        }
+
+        const featuresList = (s.features || []).map(f => `
+          <li class="flex items-center gap-1.5 font-medium"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> ${f}</li>
+        `).join('');
+
+        return `
+          <div class="bg-white rounded-2xl p-6 border-2 ${borderClass} transition group shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 rounded-xl ${bgIconClass} flex items-center justify-center group-hover:scale-110 transition">
+                  <i data-lucide="${s.icon || 'truck'}" class="w-6 h-6"></i>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200 text-[10px] font-extrabold uppercase">
+                  ${s.tag || s.category}
+                </span>
+              </div>
+              <h3 class="text-base font-extrabold text-slate-900 mb-2">${s.title}</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4">${s.description}</p>
+              ${featuresList ? `<ul class="text-[11px] text-slate-500 space-y-1.5 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100">${featuresList}</ul>` : ''}
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-slate-400 block uppercase font-semibold">Tariff From</span>
+                <strong class="text-sm font-black text-brand-orange">${s.priceStarting || 'Contact for Rate'}</strong>
+              </div>
+              <a href="#quote" onclick="prefillService('${s.title}')" class="px-3.5 py-1.5 rounded-xl ${btnBg} text-white text-xs font-bold transition flex items-center gap-1 shadow">
+                Book Service <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function renderAdminServicesList(services) {
+      const container = document.getElementById('admServicesList');
+      if (!container) return;
+
+      if (!services.length) {
+        container.innerHTML = `<p class="text-xs text-slate-400 p-3">No custom services added yet.</p>`;
+        return;
+      }
+
+      container.innerHTML = services.map(s => `
+        <div class="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between shadow-sm">
+          <div>
+            <h5 class="font-bold text-xs text-slate-900">${s.title}</h5>
+            <p class="text-[10px] text-slate-500">${s.category} · ${s.tag} · Price: <strong class="text-brand-orange">${s.priceStarting}</strong></p>
+          </div>
+          <button onclick="deleteService('${s.id}')" class="px-2.5 py-1 rounded bg-rose-50 text-rose-700 hover:bg-rose-100 text-[11px] font-bold flex items-center gap-1">
+            <i data-lucide="trash-2" class="w-3 h-3"></i> Delete
+          </button>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    async function submitNewService(e) {
+      e.preventDefault();
+      const btn = document.getElementById('admSaveServiceBtn');
+      btn.disabled = true;
+
+      const payload = {
+        title: document.getElementById('srvTitle').value.trim(),
+        category: document.getElementById('srvCategory').value.trim() || 'Express Logistics',
+        tag: document.getElementById('srvTag').value.trim() || 'Direct Route',
+        description: document.getElementById('srvDescription').value.trim(),
+        priceStarting: document.getElementById('srvPrice').value.trim() || 'Competitive Tariff',
+        features: document.getElementById('srvFeatures').value.trim().split('\n').filter(Boolean)
+      };
+
+      try {
+        const res = await fetch('/api/services', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('Service added successfully! It is now live on the customer portal.');
+          document.getElementById('admNewServiceForm').reset();
+          fetchServices();
+        } else {
+          alert(data.error || 'Failed to add service.');
+        }
+      } catch (err) {
+        alert('Server connection error.');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function deleteService(id) {
+      if (!confirm('Are you sure you want to remove this service from the customer portal?')) return;
+      try {
+        await fetch(`/api/services/${id}`, { method: 'DELETE' });
+        fetchServices();
+      } catch (err) {
+        alert('Failed to delete service');
+      }
+    }
+
+    // ==============================================================
+    // 5. DYNAMIC ROUTES API & RENDERING (CUSTOMER PORTAL)
+    // ==============================================================
+    let allRoutes = [];
+
+    async function fetchRoutes() {
+      try {
+        const res = await fetch('/api/routes');
+        const routes = await res.json();
+        allRoutes = routes;
+
+        const countSpan = document.getElementById('admTabCountRoutes');
+        if (countSpan) countSpan.textContent = routes.length;
+
+        renderDynamicRoutes(routes);
+        renderAdminRoutesList(routes);
+      } catch (err) {
+        console.error('Failed to load routes:', err);
+      }
+    }
+
+    function renderDynamicRoutes(routes) {
+      const container = document.getElementById('dynamicRoutesGrid');
+      if (!container || !routes.length) return;
+
+      container.innerHTML = routes.map(r => {
+        const placesPills = (r.famousPlaces || '').split(',').map(p => `
+          <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">${p.trim()}</span>
+        `).join('');
+
+        return `
+          <div class="bg-slate-50 rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-orange hover:bg-white transition group shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="px-2.5 py-1 rounded-full bg-orange-100 text-brand-orange text-[10px] font-extrabold uppercase tracking-wide">
+                  ${r.state || 'Commercial Corridor'}
+                </span>
+                <span class="text-xs font-bold text-emerald-600 flex items-center gap-1">
+                  ● ${r.frequency || 'Daily Express'}
+                </span>
+              </div>
+              <h3 class="text-lg font-black text-slate-900 mb-1">${r.destination}</h3>
+              <p class="text-xs text-slate-500 mb-3">${r.distance} · ${r.transitTime}</p>
+              
+              <div class="space-y-1.5 mb-4">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Famous Commercial Hubs:</span>
+                <div class="flex flex-wrap gap-1.5">
+                  ${placesPills}
+                </div>
+              </div>
+
+              <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+                <strong>Fleet Available:</strong> ${r.vehicleTypes || '8ft to 22ft (10-12 Ton Certified)'}
+              </div>
+            </div>
+            <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
+                <strong class="text-sm font-black text-brand-orange">${r.priceStarting || '₹12,500'}</strong>
+              </div>
+              <a href="#quote" onclick="prefillCorridor('${r.destination}')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold transition flex items-center gap-1">
+                Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function renderAdminRoutesList(routes) {
+      const container = document.getElementById('admRoutesList');
+      if (!container) return;
+
+      if (!routes.length) {
+        container.innerHTML = `<p class="text-xs text-slate-400 p-3">No custom routes added yet.</p>`;
+        return;
+      }
+
+      container.innerHTML = routes.map(r => `
+        <div class="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between shadow-sm">
+          <div>
+            <h5 class="font-bold text-xs text-slate-900">${r.destination} (${r.state})</h5>
+            <p class="text-[10px] text-slate-500">Places: ${r.famousPlaces} · Price: <strong class="text-brand-orange">${r.priceStarting}</strong></p>
+          </div>
+          <button onclick="deleteRoute('${r.id}')" class="px-2.5 py-1 rounded bg-rose-50 text-rose-700 hover:bg-rose-100 text-[11px] font-bold flex items-center gap-1">
+            <i data-lucide="trash-2" class="w-3 h-3"></i> Delete
+          </button>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    async function submitNewRoute(e) {
+      e.preventDefault();
+      const btn = document.getElementById('admSaveRouteBtn');
+      btn.disabled = true;
+
+      const payload = {
+        destination: document.getElementById('rtDest').value.trim(),
+        state: document.getElementById('rtState').value.trim(),
+        famousPlaces: document.getElementById('rtPlaces').value.trim(),
+        priceStarting: document.getElementById('rtPrice').value.trim() || '₹14,500',
+        distance: document.getElementById('rtDistance').value.trim() || 'Express Corridor',
+        transitTime: document.getElementById('rtTransit').value.trim() || '12-24 Hours',
+        frequency: document.getElementById('rtFrequency').value.trim() || 'Daily Direct Express',
+        vehicleTypes: '8ft, 14ft, 17ft, 20ft, 22ft (10-12 Ton Passing)'
+      };
+
+      try {
+        const res = await fetch('/api/routes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('Route corridor published! Visible to all customers immediately.');
+          document.getElementById('admNewRouteForm').reset();
+          fetchRoutes();
+        } else {
+          alert(data.error || 'Failed to add route.');
+        }
+      } catch (err) {
+        alert('Server connection error.');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function deleteRoute(id) {
+      if (!confirm('Are you sure you want to remove this corridor from the customer portal?')) return;
+      try {
+        await fetch(`/api/routes/${id}`, { method: 'DELETE' });
+        fetchRoutes();
+      } catch (err) {
+        alert('Failed to delete route');
+      }
+    }
+
+    // ==============================================================
+    // 6. ADMIN MODAL TABS & DATA SYNC
+    // ==============================================================
+    let allQuotes = [];
+
+    function openAdminModal(initialTab = 'quotes') {
+      const modal = document.getElementById('adminModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      switchAdminTab(initialTab);
+      fetchAdminData();
+      fetchServices();
+      fetchRoutes();
+    }
+
+    function closeAdminModal() {
+      const modal = document.getElementById('adminModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    function switchAdminTab(tab) {
+      const pQuotes = document.getElementById('admPaneQuotes');
+      const pServices = document.getElementById('admPaneServices');
+      const pRoutes = document.getElementById('admPaneRoutes');
+
+      const bQuotes = document.getElementById('admTabQuotesBtn');
+      const bServices = document.getElementById('admTabServicesBtn');
+      const bRoutes = document.getElementById('admTabRoutesBtn');
+
+      [pQuotes, pServices, pRoutes].forEach(p => p.classList.add('hidden'));
+      [bQuotes, bServices, bRoutes].forEach(b => {
+        b.classList.remove('bg-white', 'text-slate-900', 'border-t-2', 'border-brand-orange', 'shadow-sm');
+        b.classList.add('text-slate-600');
+      });
+
+      if (tab === 'quotes') {
+        pQuotes.classList.remove('hidden');
+        bQuotes.classList.add('bg-white', 'text-slate-900', 'border-t-2', 'border-brand-orange', 'shadow-sm');
+        bQuotes.classList.remove('text-slate-600');
+      } else if (tab === 'services') {
+        pServices.classList.remove('hidden');
+        bServices.classList.add('bg-white', 'text-slate-900', 'border-t-2', 'border-brand-orange', 'shadow-sm');
+        bServices.classList.remove('text-slate-600');
+      } else if (tab === 'routes') {
+        pRoutes.classList.remove('hidden');
+        bRoutes.classList.add('bg-white', 'text-slate-900', 'border-t-2', 'border-brand-orange', 'shadow-sm');
+        bRoutes.classList.remove('text-slate-600');
+      }
+      lucide.createIcons();
+    }
+
+    async function fetchAdminData() {
+      try {
+        const [qRes, statsRes] = await Promise.all([
+          fetch('/api/quotes'),
+          fetch('/api/stats')
+        ]);
+        allQuotes = await qRes.json();
+        const stats = await statsRes.json();
+
+        document.getElementById('admTotalQuotes').textContent = stats.totalQuotes;
+        document.getElementById('admNewQuotes').textContent = stats.newRequests;
+        document.getElementById('admInTransit').textContent = stats.inTransit;
+        
+        const countSpan = document.getElementById('admTabCountQuotes');
+        if (countSpan) countSpan.textContent = allQuotes.length;
+
+        renderAdminTable(allQuotes);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderAdminTable(quotes) {
+      const tbody = document.getElementById('adminQuotesTableBody');
+      if (!quotes.length) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-5 text-center text-slate-400">No customer quotes found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = quotes.map(q => {
+        let statusBadge = 'bg-slate-100 text-slate-700';
+        if (q.status === 'New') statusBadge = 'bg-orange-100 text-orange-800';
+        if (q.status === 'Quoted') statusBadge = 'bg-blue-100 text-blue-800';
+        if (q.status === 'In Transit') statusBadge = 'bg-purple-100 text-purple-800';
+        if (q.status === 'Completed') statusBadge = 'bg-emerald-100 text-emerald-800';
+
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="p-3 font-mono font-bold text-slate-900">${q.id}</td>
+            <td class="p-3">
+              <div class="font-bold text-slate-900">${q.name}</div>
+              <div class="text-[10px] text-slate-500">${q.phone} ${q.company ? '· ' + q.company : ''}</div>
+            </td>
+            <td class="p-3">
+              <span class="font-bold text-slate-800">${q.pickupCity}</span> ➔ <span class="font-bold text-slate-800">${q.dropCity}</span>
+            </td>
+            <td class="p-3">
+              <div>${q.cargoType}</div>
+              <div class="text-[10px] text-slate-500 font-semibold">${q.weightTons} Tons · ${q.vehicleType}</div>
+            </td>
+            <td class="p-3 font-bold text-brand-orange">${q.estimatedPrice || 'Pending'}</td>
+            <td class="p-3">
+              <select onchange="updateQuoteStatus('${q.id}', this.value)" class="text-[10px] font-bold px-2 py-0.5 rounded-full border border-slate-200 ${statusBadge}">
+                <option value="New" ${q.status === 'New' ? 'selected' : ''}>New</option>
+                <option value="Quoted" ${q.status === 'Quoted' ? 'selected' : ''}>Quoted</option>
+                <option value="In Transit" ${q.status === 'In Transit' ? 'selected' : ''}>In Transit</option>
+                <option value="Completed" ${q.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                <option value="Cancelled" ${q.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+              </select>
+            </td>
+            <td class="p-3 text-right space-x-1">
+              <a href="https://wa.me/${(q.phone || '').replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(q.name)},%20regarding%20your%20Sachin%20Cargo%20enquiry%20${q.id}..." target="_blank" class="p-1.5 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 inline-block" title="WhatsApp Customer">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="deleteQuote('${q.id}')" class="p-1.5 rounded bg-rose-50 text-rose-700 hover:bg-rose-100 inline-block" title="Delete">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function filterAdminQuotes() {
+      const search = (document.getElementById('adminSearchInput').value || '').toLowerCase();
+      const status = document.getElementById('adminStatusFilter').value;
+
+      const filtered = allQuotes.filter(q => {
+        const matchSearch = (q.name || '').toLowerCase().includes(search) ||
+                            (q.phone || '').includes(search) ||
+                            (q.pickupCity || '').toLowerCase().includes(search) ||
+                            (q.dropCity || '').toLowerCase().includes(search) ||
+                            (q.id || '').toLowerCase().includes(search);
+        const matchStatus = status === 'ALL' || q.status === status;
+        return matchSearch && matchStatus;
+      });
+
+      renderAdminTable(filtered);
+    }
+
+    async function updateQuoteStatus(id, newStatus) {
+      try {
+        await fetch(`/api/quotes/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        fetchAdminData();
+      } catch (err) {
+        alert('Failed to update status');
+      }
+    }
+
+    async function deleteQuote(id) {
+      if (!confirm(`Are you sure you want to delete quote enquiry ${id}?`)) return;
+      try {
+        await fetch(`/api/quotes/${id}`, { method: 'DELETE' });
+        fetchAdminData();
+      } catch (err) {
+        alert('Failed to delete quote');
+      }
+    }
+
+    function exportQuotesCSV() {
+      if (!allQuotes.length) {
+        alert('No quotes to export');
+        return;
+      }
+      let csv = 'ID,Date,Name,Phone,Email,Company,Pickup,Drop,Cargo,WeightTons,Vehicle,EstimatedPrice,Status,Notes\n';
+      allQuotes.forEach(q => {
+        csv += `"${q.id}","${q.createdAt}","${q.name}","${q.phone}","${q.email || ''}","${q.company || ''}","${q.pickupCity}","${q.dropCity}","${q.cargoType}","${q.weightTons}","${q.vehicleType}","${q.estimatedPrice}","${q.status}","${(q.notes || '').replace(/"/g, '""')}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Sachin_Cargo_Enquiries_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+    }
+
+    // ==============================================================
+    // 7. TRACKING & QUOTE ENQUIRY HANDLERS
+    // ==============================================================
     async function handleTrackShipment(e) {
       if (e) e.preventDefault();
       const id = document.getElementById('trackInput').value.trim();
@@ -2059,7 +3494,7 @@
             `• Cargo: ${payload.cargoType} (${payload.weightTons} Tons)\n` +
             `• Vehicle: ${payload.vehicleType}\n` +
             `• Date: ${payload.pickupDate || 'Immediate'}\n` +
-            `Please confirm availability and dispatch window.`
+            `Please confirm truck availability and best rate.`
           );
           document.getElementById('quoteSuccessWhatsAppLink').href = `https://wa.me/918867444552?text=${waText}`;
 
@@ -2118,150 +3553,7 @@
         console.error(err);
       }
     }
-
-    // ADMIN DASHBOARD
-    let allQuotes = [];
-
-    function openAdminModal() {
-      document.getElementById('adminModal').classList.remove('hidden');
-      document.getElementById('adminModal').classList.add('flex');
-      fetchAdminData();
-    }
-
-    function closeAdminModal() {
-      document.getElementById('adminModal').classList.remove('flex');
-      document.getElementById('adminModal').classList.add('hidden');
-    }
-
-    async function fetchAdminData() {
-      try {
-        const [qRes, statsRes] = await Promise.all([
-          fetch('/api/quotes'),
-          fetch('/api/stats')
-        ]);
-        allQuotes = await qRes.json();
-        const stats = await statsRes.json();
-
-        document.getElementById('admTotalQuotes').textContent = stats.totalQuotes;
-        document.getElementById('admNewQuotes').textContent = stats.newRequests;
-        document.getElementById('admInTransit').textContent = stats.inTransit;
-
-        renderAdminTable(allQuotes);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    function renderAdminTable(quotes) {
-      const tbody = document.getElementById('adminQuotesTableBody');
-      if (!quotes.length) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-5 text-center text-slate-400">No customer quotes found.</td></tr>`;
-        return;
-      }
-
-      tbody.innerHTML = quotes.map(q => {
-        let statusBadge = 'bg-slate-100 text-slate-700';
-        if (q.status === 'New') statusBadge = 'bg-orange-100 text-orange-800';
-        if (q.status === 'Quoted') statusBadge = 'bg-blue-100 text-blue-800';
-        if (q.status === 'In Transit') statusBadge = 'bg-purple-100 text-purple-800';
-        if (q.status === 'Completed') statusBadge = 'bg-emerald-100 text-emerald-800';
-
-        return `
-          <tr class="hover:bg-slate-50 transition">
-            <td class="p-3 font-mono font-bold text-slate-900">${q.id}</td>
-            <td class="p-3">
-              <div class="font-bold text-slate-900">${q.name}</div>
-              <div class="text-[10px] text-slate-500">${q.phone} ${q.company ? '· ' + q.company : ''}</div>
-            </td>
-            <td class="p-3">
-              <span class="font-bold text-slate-800">${q.pickupCity}</span> ➔ <span class="font-bold text-slate-800">${q.dropCity}</span>
-            </td>
-            <td class="p-3">
-              <div>${q.cargoType}</div>
-              <div class="text-[10px] text-slate-500 font-semibold">${q.weightTons} Tons · ${q.vehicleType}</div>
-            </td>
-            <td class="p-3 font-bold text-brand-orange">${q.estimatedPrice || 'Pending'}</td>
-            <td class="p-3">
-              <select onchange="updateQuoteStatus('${q.id}', this.value)" class="text-[10px] font-bold px-2 py-0.5 rounded-full border border-slate-200 ${statusBadge}">
-                <option value="New" ${q.status === 'New' ? 'selected' : ''}>New</option>
-                <option value="Quoted" ${q.status === 'Quoted' ? 'selected' : ''}>Quoted</option>
-                <option value="In Transit" ${q.status === 'In Transit' ? 'selected' : ''}>In Transit</option>
-                <option value="Completed" ${q.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                <option value="Cancelled" ${q.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
-              </select>
-            </td>
-            <td class="p-3 text-right space-x-1">
-              <a href="https://wa.me/${(q.phone || '').replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(q.name)},%20regarding%20your%20Sachin%20Cargo%20enquiry%20${q.id}..." target="_blank" class="p-1.5 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 inline-block" title="WhatsApp Customer">
-                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-              </a>
-              <button onclick="deleteQuote('${q.id}')" class="p-1.5 rounded bg-rose-50 text-rose-700 hover:bg-rose-100 inline-block" title="Delete">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-              </button>
-            </td>
-          </tr>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function filterAdminQuotes() {
-      const search = (document.getElementById('adminSearchInput').value || '').toLowerCase();
-      const status = document.getElementById('adminStatusFilter').value;
-
-      const filtered = allQuotes.filter(q => {
-        const matchSearch = (q.name || '').toLowerCase().includes(search) ||
-                            (q.phone || '').includes(search) ||
-                            (q.pickupCity || '').toLowerCase().includes(search) ||
-                            (q.dropCity || '').toLowerCase().includes(search) ||
-                            (q.id || '').toLowerCase().includes(search);
-        const matchStatus = status === 'ALL' || q.status === status;
-        return matchSearch && matchStatus;
-      });
-
-      renderAdminTable(filtered);
-    }
-
-    async function updateQuoteStatus(id, newStatus) {
-      try {
-        await fetch(`/api/quotes/${id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status: newStatus })
-        });
-        fetchAdminData();
-      } catch (err) {
-        alert('Failed to update status');
-      }
-    }
-
-    async function deleteQuote(id) {
-      if (!confirm(`Are you sure you want to delete quote enquiry ${id}?`)) return;
-      try {
-        await fetch(`/api/quotes/${id}`, { method: 'DELETE' });
-        fetchAdminData();
-      } catch (err) {
-        alert('Failed to delete quote');
-      }
-    }
-
-    function exportQuotesCSV() {
-      if (!allQuotes.length) {
-        alert('No quotes to export');
-        return;
-      }
-      let csv = 'ID,Date,Name,Phone,Email,Company,Pickup,Drop,Cargo,WeightTons,Vehicle,EstimatedPrice,Status,Notes\n';
-      allQuotes.forEach(q => {
-        csv += `"${q.id}","${q.createdAt}","${q.name}","${q.phone}","${q.email || ''}","${q.company || ''}","${q.pickupCity}","${q.dropCity}","${q.cargoType}","${q.weightTons}","${q.vehicleType}","${q.estimatedPrice}","${q.status}","${(q.notes || '').replace(/"/g, '""')}"\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Sachin_Cargo_Enquiries_${new Date().toISOString().slice(0, 10)}.csv`;
-      a.click();
-    }
   </script>
-
   <!-- ===================== CINEMATIC PRELOADER SCRIPT ===================== -->
   <script>
     var preloaderDismissed = false;

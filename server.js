@@ -15,6 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 const quotesFile = path.join(__dirname, 'data', 'quotes.json');
 const trackingFile = path.join(__dirname, 'data', 'tracking.json');
 const messagesFile = path.join(__dirname, 'data', 'messages.json');
+const servicesFile = path.join(__dirname, 'data', 'services.json');
+const routesFile = path.join(__dirname, 'data', 'routes.json');
+const vehiclesFile = path.join(__dirname, 'data', 'vehicles.json');
 
 // Helper functions for JSON storage
 function readData(filePath, fallback = []) {
@@ -33,6 +36,10 @@ function readData(filePath, fallback = []) {
 
 function writeData(filePath, data) {
   try {
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
     return true;
   } catch (err) {
@@ -40,6 +47,11 @@ function writeData(filePath, data) {
     return false;
   }
 }
+
+// Health check endpoint for Render / monitoring
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
 
 // Distance & Rate calculation matrix (from Kattedan, Hyderabad hub)
 const distanceMatrix = {
@@ -66,9 +78,12 @@ app.post('/api/estimate-rate', (req, res) => {
   
   const tons = Math.max(1, parseFloat(weightTons) || 1);
   let vehicleMultiplier = 1.0;
-  if (vehicleType.includes('32ft')) vehicleMultiplier = 1.25;
-  else if (vehicleType.includes('Trailer')) vehicleMultiplier = 1.45;
-  else if (vehicleType.includes('20ft')) vehicleMultiplier = 1.1;
+  if (vehicleType.includes('22ft') || vehicleType.includes('10-12')) vehicleMultiplier = 1.25;
+  else if (vehicleType.includes('20ft')) vehicleMultiplier = 1.15;
+  else if (vehicleType.includes('19ft')) vehicleMultiplier = 1.08;
+  else if (vehicleType.includes('17ft')) vehicleMultiplier = 1.00;
+  else if (vehicleType.includes('14ft')) vehicleMultiplier = 0.85;
+  else if (vehicleType.includes('8ft')) vehicleMultiplier = 0.65;
 
   const estimatedBase = Math.round(info.km * 38 + tons * info.baseRatePerTon * 0.45 * vehicleMultiplier);
   const minPrice = Math.round(estimatedBase * 0.95);
@@ -84,6 +99,88 @@ app.post('/api/estimate-rate', (req, res) => {
     tollAndFuelIncluded: true,
     gpsTrackingIncluded: true
   });
+});
+
+// API: Services Management (Dynamic Customer Portal)
+app.get('/api/services', (req, res) => {
+  const services = readData(servicesFile, []);
+  res.json(services);
+});
+
+app.post('/api/services', (req, res) => {
+  const { title, category, tag, description, icon = 'truck', features = [], priceStarting = 'Contact for Rate' } = req.body;
+  if (!title || !description) {
+    return res.status(400).json({ error: 'Title and description are required' });
+  }
+  const services = readData(servicesFile, []);
+  const newService = {
+    id: `SRV-${Date.now().toString(36).toUpperCase()}`,
+    title,
+    category: category || 'Express Logistics',
+    tag: tag || 'Direct Route',
+    description,
+    icon: icon || 'truck',
+    features: Array.isArray(features) ? features : (features ? features.toString().split('\n').map(s => s.trim()).filter(Boolean) : []),
+    priceStarting: priceStarting || 'Competitive Rate',
+    rating: '4.9/5',
+    active: true
+  };
+  services.unshift(newService);
+  writeData(servicesFile, services);
+  res.status(201).json({ success: true, service: newService });
+});
+
+app.delete('/api/services/:id', (req, res) => {
+  const { id } = req.params;
+  let services = readData(servicesFile, []);
+  services = services.filter(s => s.id !== id);
+  writeData(servicesFile, services);
+  res.json({ success: true, message: 'Service removed successfully' });
+});
+
+// API: Routes Management (Dynamic Customer Portal)
+app.get('/api/routes', (req, res) => {
+  const routes = readData(routesFile, []);
+  res.json(routes);
+});
+
+app.post('/api/routes', (req, res) => {
+  const { origin, destination, state, famousPlaces, distance, transitTime, frequency, vehicleTypes, priceStarting } = req.body;
+  if (!destination) {
+    return res.status(400).json({ error: 'Destination is required' });
+  }
+  const routes = readData(routesFile, []);
+  const newRoute = {
+    id: `RT-${Date.now().toString(36).toUpperCase()}`,
+    origin: origin || 'Hyderabad, Telangana (Kattedan Hub)',
+    destination,
+    state: state || 'Key Commercial Corridor',
+    famousPlaces: famousPlaces || 'City Industrial Hubs, Wholesale Terminals & Logistics Parks',
+    distance: distance ? (distance.toString().includes('km') ? distance : `${distance} km`) : 'Express Corridor',
+    transitTime: transitTime || '12-24 Hours Transit',
+    frequency: frequency || 'Daily Scheduled Departures',
+    vehicleTypes: vehicleTypes || '8ft, 14ft, 17ft, 20ft, 22ft (10-12 Ton)',
+    priceStarting: priceStarting ? (priceStarting.toString().startsWith('₹') ? priceStarting : `₹${priceStarting}`) : '₹12,500',
+    popular: true,
+    active: true
+  };
+  routes.unshift(newRoute);
+  writeData(routesFile, routes);
+  res.status(201).json({ success: true, route: newRoute });
+});
+
+app.delete('/api/routes/:id', (req, res) => {
+  const { id } = req.params;
+  let routes = readData(routesFile, []);
+  routes = routes.filter(r => r.id !== id);
+  writeData(routesFile, routes);
+  res.json({ success: true, message: 'Route removed successfully' });
+});
+
+// API: Vehicles Fleet (8ft to 22ft with 10-12 Ton Passing)
+app.get('/api/vehicles', (req, res) => {
+  const vehicles = readData(vehiclesFile, []);
+  res.json(vehicles);
 });
 
 // API: Quotes (Enquiries)
@@ -280,9 +377,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`===================================================`);
-  console.log(`🚛 Sachin Cargo Carriers Portal running on http://localhost:${PORT}`);
+  console.log(`🚛 Sachin Cargo Carriers Portal running on http://0.0.0.0:${PORT}`);
   console.log(`📍 Hub: Kattedan, Hyderabad, Telangana 500005`);
   console.log(`📞 Mobiles / WhatsApp: +91 88674 44552, +91 96323 69433`);
   console.log(`☎ Customer Care: +91 95054 44552`);

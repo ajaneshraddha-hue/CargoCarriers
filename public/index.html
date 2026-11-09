@@ -804,8 +804,27 @@
 
           </div>
 
-          <!-- Second Row: Cargo weight and submit -->
+          <!-- Second Row: Service Type + Cargo Weight -->
           <div class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 items-end">
+
+            <!-- Service Type Selector (links Book Service → Calculator) -->
+            <div class="sm:col-span-4">
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+                <i data-lucide="package" class="w-3 h-3 inline text-brand-orange"></i> Service Type
+              </label>
+              <div class="relative">
+                <i data-lucide="list-checks" class="w-4 h-4 absolute left-3 top-2.5 text-purple-500"></i>
+                <select id="quickService" class="w-full pl-9 pr-3 py-2 text-xs font-semibold border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:outline-none bg-white">
+                  <option value="">— Any Service —</option>
+                  <option value="Hyderabad to Bangalore Daily Express">🚛 Hyderabad → Bangalore Daily Express</option>
+                  <option value="Bus Express Parcel & Cargo Delivery">📦 Bus Express Parcel & Cargo Delivery</option>
+                  <option value="Packers and Movers (Home & Corporate)">🏠 Packers & Movers (Home & Corporate)</option>
+                  <option value="Full Truck Load (FTL)">🚚 Full Truck Load (FTL)</option>
+                  <option value="Warehousing & Storage">🏭 Warehousing & Storage</option>
+                </select>
+              </div>
+            </div>
+
             <div class="sm:col-span-4">
               <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
                 Approx Cargo Weight (Tons)
@@ -816,12 +835,12 @@
               </div>
             </div>
 
-            <div class="sm:col-span-8 flex gap-2">
+            <div class="sm:col-span-4 flex gap-2">
               <button type="submit" class="flex-1 py-2.5 px-5 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white font-black text-xs uppercase tracking-wider shadow-lg transition flex items-center justify-center gap-2">
-                <i data-lucide="calculator" class="w-4 h-4"></i> Get Instant Freight Rate
+                <i data-lucide="calculator" class="w-4 h-4"></i> Get Rate
               </button>
-              <a href="#quote" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center justify-center gap-1">
-                Custom Quote <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              <a href="#quote" onclick="transferEstimateToQuote()" class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center justify-center gap-1">
+                Book <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </a>
             </div>
           </div>
@@ -1443,7 +1462,7 @@
   <!-- 5. CORRIDORS & STATE HUBS SECTION (DYNAMIC & ADMIN MANAGED) -->
   <!-- REPLACES OLD PAN-INDIA NETWORK WITH HIGHLIGHTED STATES & FAMOUS PLACES -->
   <!-- ============================================================== -->
-  <section id="routes" class="py-16 bg-white border-b border-slate-200">
+  <section id="routes" class="py-16 bg-gradient-to-b from-slate-50 to-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-3 mb-10">
@@ -1469,7 +1488,11 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dynamicRoutesGrid">
         
         <!-- Corridor 1: Karnataka (Bengaluru) -->
-        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-orange-200 hover:border-brand-orange hover:bg-white transition group shadow-sm flex flex-col justify-between">
+        <div class="relative rounded-2xl border-2 border-orange-200 hover:border-brand-orange transition group shadow-sm flex flex-col justify-between overflow-hidden" style="min-height:340px;">
+          <!-- City background image - Bengaluru Skyline -->
+          <div class="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-500" style="background-image:url('https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=600&q=60')"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-orange-50/90 via-white/85 to-white/95"></div>
+          <div class="relative z-10 p-6 flex flex-col justify-between h-full">
           <div>
             <div class="flex justify-between items-start mb-3">
               <span class="px-2.5 py-1 rounded-full bg-orange-100 text-brand-orange text-[10px] font-extrabold uppercase tracking-wide">
@@ -1493,7 +1516,7 @@
               </div>
             </div>
 
-            <div class="text-[11px] text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200 mb-4">
+            <div class="text-[11px] text-slate-600 bg-white/80 p-2.5 rounded-xl border border-slate-200 mb-4">
               <strong>Fleet Available:</strong> 8ft, 14ft, 17ft, 20ft &amp; 22ft (10-12 Ton Passing Certified)
             </div>
           </div>
@@ -1502,15 +1525,23 @@
               <span class="text-[10px] text-slate-400 block uppercase font-semibold">Starting Freight</span>
               <strong class="text-sm font-black text-brand-orange">₹14,500</strong>
             </div>
-            <a href="#quote" onclick="prefillCorridor('Bengaluru, Karnataka')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold transition flex items-center gap-1">
-              Book Corridor <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </a>
+            <div class="flex gap-2">
+              <button onclick="bookServiceToCalc('Hyderabad to Bangalore Daily Express','bengaluru')" class="px-3 py-1.5 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold transition flex items-center gap-1 shadow">
+                <i data-lucide="calculator" class="w-3 h-3"></i> Calculate
+              </button>
+              <a href="#quote" onclick="prefillCorridor('Bengaluru, Karnataka')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-brand-orange text-white text-xs font-bold transition flex items-center gap-1">
+                Book <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
           </div>
         </div>
 
         <!-- Corridor 2: Maharashtra (Mumbai & Pune) -->
-        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-sky-200 hover:border-sky-500 hover:bg-white transition group shadow-sm flex flex-col justify-between">
-          <div>
+        <div class="relative rounded-2xl border-2 border-sky-200 hover:border-sky-500 transition group shadow-sm flex flex-col justify-between overflow-hidden" style="min-height:340px;">
+          <div class="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-500" style="background-image:url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=600&q=60')"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-sky-50/90 via-white/85 to-white/95"></div>
+          <div class="relative z-10 p-6 flex-1">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2.5 py-1 rounded-full bg-sky-100 text-brand-primary text-[10px] font-extrabold uppercase tracking-wide">
                 Maharashtra Corridor
@@ -2534,6 +2565,12 @@
                 <textarea id="srvFeatures" rows="2" placeholder="Guaranteed 12-14 hr transit&#10;Daily 2-Way runs&#10;8ft to 22ft fleet" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange"></textarea>
               </div>
 
+              <div>
+                <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">🖼 Truck / Service Image URL (optional)</label>
+                <input type="url" id="srvImageUrl" placeholder="e.g. https://images.unsplash.com/photo-...?w=600" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-brand-orange">
+                <p class="text-[10px] text-slate-400 mt-1">Paste any truck or city image URL — displays as card background</p>
+              </div>
+
               <div class="flex justify-end gap-2">
                 <button type="submit" id="admSaveServiceBtn" class="px-4 py-2 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-xs flex items-center gap-1.5 shadow transition">
                   <i data-lucide="save" class="w-3.5 h-3.5"></i> Publish Service to Website
@@ -2581,6 +2618,12 @@
               <div>
                 <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">Famous Cities / Commercial Places (Comma-separated) *</label>
                 <input type="text" id="rtPlaces" placeholder="e.g. Chakan Auto Cluster, Bhosari MIDC, Hinjawadi Tech Park, Hadapsar" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600" required>
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-bold text-slate-700 uppercase mb-1">🖼 City Background Image URL (optional — adds city photo to card)</label>
+                <input type="url" id="rtCityImg" placeholder="e.g. https://images.unsplash.com/photo-...?w=600&q=60" class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-600">
+                <p class="text-[10px] text-slate-400 mt-1">Paste any public image URL (Unsplash, Google, etc.) — will show as light background behind the card</p>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -2865,6 +2908,47 @@
       }
     }
 
+    // bookServiceToCalc: "Book Service" or "Calculate" on cards pre-fills the calculator
+    function bookServiceToCalc(serviceName, dropCityVal) {
+      // 1. Set Service Type dropdown
+      var svcSel = document.getElementById('quickService');
+      if (svcSel) {
+        for (var i = 0; i < svcSel.options.length; i++) {
+          if (svcSel.options[i].value === serviceName) {
+            svcSel.selectedIndex = i;
+            break;
+          }
+        }
+        // If not found in fixed list, add dynamically
+        if (svcSel.value !== serviceName) {
+          var opt = document.createElement('option');
+          opt.value = serviceName;
+          opt.text = serviceName;
+          svcSel.appendChild(opt);
+          svcSel.value = serviceName;
+        }
+      }
+      // 2. Set Destination dropdown
+      var dropSel = document.getElementById('quickDrop');
+      if (dropSel && dropCityVal) {
+        for (var j = 0; j < dropSel.options.length; j++) {
+          if (dropSel.options[j].value === dropCityVal) {
+            dropSel.selectedIndex = j;
+            break;
+          }
+        }
+      }
+      // 3. Scroll to calculator and trigger calculation
+      var calcSection = document.getElementById('calculator');
+      if (calcSection) {
+        calcSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(function() {
+          var form = document.getElementById('heroQuickEstimateForm');
+          if (form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        }, 600);
+      }
+    }
+
     // ==============================================================
     // 4. DYNAMIC SERVICES API & RENDERING (CUSTOMER PORTAL)
     // ==============================================================
@@ -2914,8 +2998,9 @@
         `).join('');
 
         return `
-          <div class="bg-white rounded-2xl p-6 border-2 ${borderClass} transition group shadow-sm flex flex-col justify-between">
-            <div>
+          <div class="bg-white rounded-2xl border-2 ${borderClass} transition group shadow-sm flex flex-col justify-between relative overflow-hidden" style="min-height:280px;">
+            ${s.imageUrl ? `<div class="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-500" style="background-image:url('${s.imageUrl}')"></div><div class="absolute inset-0 bg-gradient-to-b from-white/95 via-white/90 to-white/80"></div>` : ''}
+            <div class="relative z-10 p-6 flex-1">
               <div class="flex justify-between items-start mb-4">
                 <div class="w-12 h-12 rounded-xl ${bgIconClass} flex items-center justify-center group-hover:scale-110 transition">
                   <i data-lucide="${s.icon || 'truck'}" class="w-6 h-6"></i>
@@ -2928,14 +3013,19 @@
               <p class="text-xs text-slate-600 leading-relaxed mb-4">${s.description}</p>
               ${featuresList ? `<ul class="text-[11px] text-slate-500 space-y-1.5 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100">${featuresList}</ul>` : ''}
             </div>
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div class="relative z-10 px-6 pb-6 pt-3 border-t border-slate-100 flex items-center justify-between bg-white/60">
               <div>
                 <span class="text-[10px] text-slate-400 block uppercase font-semibold">Tariff From</span>
                 <strong class="text-sm font-black text-brand-orange">${s.priceStarting || 'Contact for Rate'}</strong>
               </div>
-              <a href="#quote" onclick="prefillService('${s.title}')" class="px-3.5 py-1.5 rounded-xl ${btnBg} text-white text-xs font-bold transition flex items-center gap-1 shadow">
-                Book Service <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-              </a>
+              <div class="flex gap-1.5">
+                <button onclick="bookServiceToCalc('${s.title}', '')" class="px-2.5 py-1.5 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold transition flex items-center gap-1 shadow">
+                  <i data-lucide="calculator" class="w-3 h-3"></i> Calculate
+                </button>
+                <a href="#quote" onclick="prefillService('${s.title}')" class="px-3 py-1.5 rounded-xl ${btnBg} text-white text-xs font-bold transition flex items-center gap-1 shadow">
+                  Book <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
             </div>
           </div>
         `;
@@ -2977,7 +3067,8 @@
         tag: document.getElementById('srvTag').value.trim() || 'Direct Route',
         description: document.getElementById('srvDescription').value.trim(),
         priceStarting: document.getElementById('srvPrice').value.trim() || 'Competitive Tariff',
-        features: document.getElementById('srvFeatures').value.trim().split('\n').filter(Boolean)
+        features: document.getElementById('srvFeatures').value.trim().split('\n').filter(Boolean),
+        imageUrl: document.getElementById('srvImageUrl') ? document.getElementById('srvImageUrl').value.trim() : ''
       };
 
       try {
@@ -3041,8 +3132,13 @@
           <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold">${p.trim()}</span>
         `).join('');
 
+        const bgStyle = r.cityImageUrl ? `style="background-image:url('${r.cityImageUrl}')"` : '';
+        const hasBg = r.cityImageUrl ? 'relative overflow-hidden' : '';
+
         return `
-          <div class="bg-slate-50 rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-orange hover:bg-white transition group shadow-sm flex flex-col justify-between">
+          <div class="bg-slate-50 rounded-2xl border-2 border-slate-200 hover:border-brand-orange transition group shadow-sm flex flex-col justify-between ${hasBg}" style="min-height:300px;">
+            ${r.cityImageUrl ? `<div class="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-500" ${bgStyle}></div><div class="absolute inset-0 bg-gradient-to-b from-orange-50/90 via-white/85 to-white/95"></div>` : ''}
+            <div class="relative z-10 p-6 flex-1">
             <div>
               <div class="flex justify-between items-start mb-3">
                 <span class="px-2.5 py-1 rounded-full bg-orange-100 text-brand-orange text-[10px] font-extrabold uppercase tracking-wide">
@@ -3113,6 +3209,7 @@
         destination: document.getElementById('rtDest').value.trim(),
         state: document.getElementById('rtState').value.trim(),
         famousPlaces: document.getElementById('rtPlaces').value.trim(),
+        cityImageUrl: document.getElementById('rtCityImg') ? document.getElementById('rtCityImg').value.trim() : '',
         priceStarting: document.getElementById('rtPrice').value.trim() || '₹14,500',
         distance: document.getElementById('rtDistance').value.trim() || 'Express Corridor',
         transitTime: document.getElementById('rtTransit').value.trim() || '12-24 Hours',
@@ -3612,3 +3709,4 @@
 
 </body>
 </html>
+
